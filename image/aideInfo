@@ -1,0 +1,18 @@
+Voici comment rentrer vos données :
+
+- latitude/longitude :
+    
+    degré°minute'seconde''POINT_CARDINAL
+    ex : 45°04'42.6''N
+    
+    Vous pouvez avoir vos coordonnées exactes sur GoogleMap, même sans connexion, en  appuyant longtemps sur votre position. Ou utiliser vos appareils de localisation à votre disposition.
+
+- taille du bâteau :
+    Veuillez donner la taille de votre bâteau en mètre.
+    ex : 65.5m
+
+- vitesse du bâteau :
+    Veuillez donner votre vitesse en noeud.
+    ex : 5.6N 
+    Un nœud est égal à un mille marin par heure, soit 1,852 km/h.
+    

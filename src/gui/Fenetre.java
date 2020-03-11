@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -23,7 +25,20 @@ public class Fenetre extends JFrame {
 		JButton aide = new JButton("Aide ?");
 		JButton aideInfo = new JButton("Comment entrer ses informations ?");
 		
-		this.setTitle("Ma JFrame");
+		this.setTitle("FindYourWave");
+		//this.setSize(500, 500);
+		
+		//get local graphics environment
+		GraphicsEnvironment graphicsEnvironment=GraphicsEnvironment.getLocalGraphicsEnvironment();
+		         
+		//get maximum window bounds
+		Rectangle maximumWindowBounds=graphicsEnvironment.getMaximumWindowBounds();
+		
+		int h = (int) maximumWindowBounds.getHeight();
+		int l = (int) maximumWindowBounds.getWidth();
+		
+		System.out.println(h + " " + l);
+		
 		this.pack();
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -42,9 +57,9 @@ public class Fenetre extends JFrame {
 		this.getContentPane().add(aideInfo);
 		
 		
-		aide.setBounds(130, 95, 100, 30);
-		info.setBounds(600, 300, 200 , 30);
-		aideInfo.setBounds(500,400,300,30);
+		aideInfo.setBounds((l/2)-150, h/3, 300, 30);
+		info.setBounds((l/2)-100, h/2, 200 , 30);
+		aide.setBounds((l/2)-50,2*h/3,100,30);
 		/*
 		gbc.gridx = 0;
 		gbc.gridy = 0;		
@@ -55,7 +70,6 @@ public class Fenetre extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String chaine = "";
 				String fichier = "image/aideInfo";{
-
 				//lecture du fichier texte	
 				try{
 					InputStream ips=new FileInputStream(fichier); 
@@ -91,7 +105,6 @@ public class Fenetre extends JFrame {
 				jop.showMessageDialog(null, Info.toString(), "Aide aux infos", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		
 		
 		this.setVisible(true);
 	}

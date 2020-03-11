@@ -33,7 +33,8 @@ public class Dialog extends JDialog {
 		this.setVisible(true);
 		return this.Info;
 	}
-
+	
+	
 	private void initComponent() {
 
 		// La latitude
