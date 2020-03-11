@@ -3,6 +3,13 @@ package gui;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -32,24 +39,60 @@ public class Fenetre extends JFrame {
 
 		this.getContentPane().add(info);
 		this.getContentPane().add(aide);
+		this.getContentPane().add(aideInfo);
 		
 		
 		aide.setBounds(130, 95, 100, 30);
 		info.setBounds(600, 300, 200 , 30);
+		aideInfo.setBounds(500,400,300,30);
 		/*
 		gbc.gridx = 0;
 		gbc.gridy = 0;		
 	    gbc.fill = GridBagConstraints.VERTICAL;
 	    */
 
-		info.addActionListener(new ActionListener() {
+		aideInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Dialog d = new Dialog(null, "Informations", true);
-				DialogInfo Info = d.showDialog();
-				JOptionPane jop = new JOptionPane();
-				jop.showMessageDialog(null, Info.toString(), "Informations", JOptionPane.INFORMATION_MESSAGE);
+				String chaine = "";
+				String fichier = "image/aideInfo";{
+
+				//lecture du fichier texte	
+				try{
+					InputStream ips=new FileInputStream(fichier); 
+					InputStreamReader ipsr=new InputStreamReader(ips);
+					BufferedReader br=new BufferedReader(ipsr);
+					String ligne;
+					while ((ligne=br.readLine())!=null){
+						if (ligne.contains("nom :"))
+						{
+							String[] st = ligne.split(ligne, ':');
+							System.out.println("Nom = "+st[1]);
+						}
+						chaine+=ligne+"\n";
+					}
+					br.close(); 
+				}		
+				catch (Exception e){
+					System.out.println(e.toString());
+				}
+				}
+				//Boîte du message d'information
+				JOptionPane jop1 = new JOptionPane();
+				jop1.showMessageDialog(null, chaine, "Information", JOptionPane.INFORMATION_MESSAGE);
+				
 			}
 		});
+		
+		info.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Dialog d = new Dialog(null, "Aide aux infos", true);
+				DialogInfo Info = d.showDialog();
+				JOptionPane jop = new JOptionPane();
+				jop.showMessageDialog(null, Info.toString(), "Aide aux infos", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		
 		this.setVisible(true);
 	}
 }

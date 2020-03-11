@@ -16,8 +16,8 @@ import javax.swing.JTextField;
 public class Dialog extends JDialog {
 	private DialogInfo Info = new DialogInfo();
 	private boolean sendData;
-	private JLabel latitudeLabel, longitudeLabel, tailleLabel, poidsLabel;
-	private JTextField poids, taille, longitude, latitude;
+	private JLabel latitudeLabel, longitudeLabel, tailleLabel, vitesseLabel;
+	private JTextField vitesse, taille, longitude, latitude;
 
 	public Dialog(JFrame parent, String title, boolean modal) {
 		super(parent, title, modal);
@@ -59,15 +59,15 @@ public class Dialog extends JDialog {
 		panLong.add(longitude);
 
 		// Le poids
-		JPanel panPoids = new JPanel();
-		panPoids.setBackground(Color.white);
-		panPoids.setPreferredSize(new Dimension(300, 100));
-		poids = new JTextField();
-		poids.setPreferredSize(new Dimension(100, 25));
-		panPoids.setBorder(BorderFactory.createTitledBorder("Poids"));
-		poidsLabel = new JLabel("Saisir le poids de votre bâteau :");
-		panPoids.add(poidsLabel);
-		panPoids.add(poids);
+		JPanel panVitesse = new JPanel();
+		panVitesse.setBackground(Color.white);
+		panVitesse.setPreferredSize(new Dimension(300, 100));
+		vitesse = new JTextField();
+		vitesse.setPreferredSize(new Dimension(100, 25));
+		panVitesse.setBorder(BorderFactory.createTitledBorder("Vitesse"));
+		vitesseLabel = new JLabel("Saisir votre vitesse :");
+		panVitesse.add(vitesseLabel);
+		panVitesse.add(vitesse);
 
 		// La taille
 		JPanel panTaille = new JPanel();
@@ -85,14 +85,14 @@ public class Dialog extends JDialog {
 		content.add(panLong);
 		content.add(panLat);
 		content.add(panTaille);
-		content.add(panPoids);
+		content.add(panVitesse);
 
 		JPanel control = new JPanel();
 		JButton okBouton = new JButton("OK");
 
 		okBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Info = new DialogInfo(taille.getText(), poids.getText(), longitude.getText(), latitude.getText());
+				Info = new DialogInfo(taille.getText(), vitesse.getText(), longitude.getText(), latitude.getText());
 				setVisible(false);
 			}
 		});
