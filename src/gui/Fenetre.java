@@ -102,7 +102,9 @@ public class Fenetre extends JFrame {
 				Dialog d = new Dialog(null, "Aide aux infos", true);
 				DialogInfo Info = d.showDialog();
 				JOptionPane jop = new JOptionPane();
-				jop.showMessageDialog(null, Info.toString(), "Aide aux infos", JOptionPane.INFORMATION_MESSAGE);
+				if (!d.isAnnul()) {
+					jop.showMessageDialog(null, Info.toString(), "Aide aux infos", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		

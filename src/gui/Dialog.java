@@ -13,11 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 public class Dialog extends JDialog {
 	private DialogInfo Info = new DialogInfo();
 	private boolean sendData;
 	private JLabel latitudeLabel, longitudeLabel, tailleLabel, vitesseLabel;
 	private JTextField vitesse, taille, longitude, latitude;
+	private boolean annul = false;
 
 	public Dialog(JFrame parent, String title, boolean modal) {
 		super(parent, title, modal);
@@ -101,6 +103,7 @@ public class Dialog extends JDialog {
 		JButton cancelBouton = new JButton("Annuler");
 		cancelBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				annul = true;
 				setVisible(false);
 			}
 		});
@@ -110,5 +113,9 @@ public class Dialog extends JDialog {
 
 		this.getContentPane().add(content, BorderLayout.CENTER);
 		this.getContentPane().add(control, BorderLayout.SOUTH);
+	}
+
+	public boolean isAnnul() {
+		return annul;
 	}
 }

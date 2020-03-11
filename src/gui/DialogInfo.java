@@ -29,15 +29,15 @@ public class DialogInfo {
 	}
 
 	public boolean longitudeOK(String info) {
-		return false;
+		return true;
 	}
 
 	public boolean tailleOK(String info) {
-		return false;
+		return true;
 	}
 
 	public boolean poidsOK(String info) {
-		return false;
+		return true;
 	}
 
 	public String toString() {
@@ -51,6 +51,8 @@ public class DialogInfo {
 		} else {
 			str = "Nous ne pouvons pas traiter ces informations !" + "\n";
 			str += "Veuillez regarder comment entrer ses informations dans la page d'accueil.";
+			
+			
 		}
 		return str;
 	}
