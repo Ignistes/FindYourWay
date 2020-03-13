@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public class Panneau extends JPanel {
   public void paintComponent(Graphics g){
     try {
-      Image img = ImageIO.read(new File("image/accueil.png"));
+      Image img = ImageIO.read(new File("image/bretgane2.jpg"));
       Image logo = ImageIO.read(new File("image/encre.jpg"));
       
       //g.drawImage(img, 50,50, this);
