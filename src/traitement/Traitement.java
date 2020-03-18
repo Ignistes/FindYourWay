@@ -32,7 +32,7 @@ public class Traitement {
 	
 	
 	//calcul le cap à prendre pour aller d'un point A à un point B
-	//entrée : latitudes et longitudes des deux points ( convertis en degrés décimaux par les fonction : coordGeoDecLat et coordGeoDecLong)
+	//entrée : latitudes et longitudes des deux points ( convertis en degrés décimaux par les fonctions : coordGeoDecLat et coordGeoDecLong)
 	//sortie : cap entre les deux points (direction du vecteur)
 	public static double capDeg(double latDe, double longDe, double latAr, double longAr) {
 		double x = Math.log(Math.tan(Math.toRadians(latAr)/2 + 3.14/4)/Math.tan(Math.toRadians(latDe)/2 + 3.14/4));
@@ -209,8 +209,10 @@ public class Traitement {
 		return longX;
 	}
 	
-}
 	
-
-
+	
+	
+	// faire une boucle if qui vérifie si le bateau n'est pas dans le polygone
+	//
+}
 	
