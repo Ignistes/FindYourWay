@@ -15,7 +15,7 @@ public class Breizh {
 	/**
 	 * @param hauteurFenetre La hauteur de la fenetre
 	 * @param largeurFenetre La largeur de la fenetre
-	 * Créer un objet Bretagne adapte a la taille de la fenetre
+	 * Crï¿½er un objet Bretagne adapte a la taille de la fenetre
 	 */
 	public Breizh(double hauteurFenetre, double largeurFenetre) {
 		pointsX = Xreturn(largeurFenetre);
@@ -57,7 +57,7 @@ public class Breizh {
 	    }
 	    for(i=0;i<390;i++) {
 	    	//res[i] = (int)(250 - 79.57747155 * Math.log(Math.tan(Math.PI/4+((pointsX[i]+180)/360)/2)));
-	    	res[i] = (int)( ((Point)(Point.GpsToBreizh(hauteur,hauteur,new Point(pointsX[i],0)))).abcisse );
+	    	res[i] = (int)-( ((Point)(Point.GpsToBreizh(hauteur,hauteur,new Point(pointsX[i],0)))).abcisse );
 	    }
 	    return res;
 	}
@@ -78,7 +78,7 @@ public class Breizh {
 	    }
 	    for(i=0;i<390;i++) {
 	    	//res[i] = (int)(500 * ((pointsY[i]+180)/360));
-	    	res[i] = (int)( ((Point)(Point.GpsToBreizh(largeur,largeur,new Point(0,pointsY[i])))).abcisse );
+	    	res[i] = (int)-( ((Point)(Point.GpsToBreizh(largeur,largeur,new Point(0,pointsY[i])))).abcisse );
 	    }
 	    return res;
 

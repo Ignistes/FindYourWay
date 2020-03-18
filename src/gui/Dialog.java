@@ -19,7 +19,8 @@ public class Dialog extends JDialog {
 	private boolean sendData;
 	private JLabel latitudeLabel, longitudeLabel, tailleLabel, vitesseLabel;
 	private JTextField vitesse, taille, longitude, latitude;
-	private boolean annul = false;
+	private boolean ok = false;
+	private PanneauBretagne breizh;
 
 	public Dialog(JFrame parent, String title, boolean modal) {
 		super(parent, title, modal);
@@ -30,10 +31,10 @@ public class Dialog extends JDialog {
 		this.initComponent();
 	}
 
-	public DialogInfo showDialog() {
+	public boolean showDialog() {
 		this.sendData = false;
 		this.setVisible(true);
-		return this.Info;
+		return ok;
 	}
 	
 	
@@ -96,6 +97,9 @@ public class Dialog extends JDialog {
 		okBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Info = new DialogInfo(taille.getText(), vitesse.getText(), longitude.getText(), latitude.getText());
+				ok = true;
+				breizh = new PanneauBretagne();
+				
 				setVisible(false);
 			}
 		});
@@ -103,7 +107,6 @@ public class Dialog extends JDialog {
 		JButton cancelBouton = new JButton("Annuler");
 		cancelBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				annul = true;
 				setVisible(false);
 			}
 		});
@@ -115,7 +118,11 @@ public class Dialog extends JDialog {
 		this.getContentPane().add(control, BorderLayout.SOUTH);
 	}
 
-	public boolean isAnnul() {
-		return annul;
+	public boolean isOk() {
+		return ok;
+	}
+	
+	public PanneauBretagne getPBretagne() {
+		return breizh;
 	}
 }

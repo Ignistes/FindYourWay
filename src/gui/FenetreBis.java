@@ -7,31 +7,47 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-public class Fenetre extends JFrame {
+public class FenetreBis {
+	
+	JFrame cadre ;
 
-	public void creerPanneau() {
-		this.setContentPane(new PanneauBretagne());
+	public void creerPanneau(JPanel panneau) {
+		panneau.setSize(cadre.getSize());
+		cadre.setContentPane(panneau);
 	}
 	
-	public Fenetre() {
+	public void reset (JPanel panneau) {
+		cadre.revalidate();
+		cadre.add(new Panneau(),new FenetreBis(panneau));
+	}
+	
+	public void gestionBouton (JButton retour, JButton info, JButton aideInfo, JFrame cadre,int h, int l) {
+		cadre.getContentPane().add(info);
+		cadre.getContentPane().add(aideInfo);
+		aideInfo.setBounds((l/2)-150, h/3, 300, 30);
+		info.setBounds((l/2)-100, h/2, 200 , 30);
+		
+	}
+	
+	public FenetreBis(JPanel panneau) {
+		
+		JPanel acceuil = new Panneau();
 		
 		//Les boutons de la page d'accueil
 		JButton info = new JButton("Entrez vos informations");
-		JButton aide = new JButton("Aide ?");
 		JButton aideInfo = new JButton("Comment entrer ses informations ?");
+		JButton retour = new JButton("Retour");
 		
+		cadre = new javax.swing.JFrame("TIPE : Alexandre, Pierre et Louis");
 		
-		this.setTitle("FindYourWave");
-		//this.setSize(500, 500);
+		//cadre.setSize(500, 500);
 		
 		//get local graphics environment
 		GraphicsEnvironment graphicsEnvironment=GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -44,27 +60,25 @@ public class Fenetre extends JFrame {
 		
 		System.out.println(h + " " + l);
 		
-		this.pack();
+		cadre.pack();
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		this.setExtendedState(Frame.MAXIMIZED_BOTH);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setContentPane(new Panneau());
-		this.setLocationRelativeTo(null);
-		this.setLayout(null);
+		cadre.setExtendedState(Frame.MAXIMIZED_BOTH);
+		cadre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cadre.setContentPane(panneau);
+		cadre.setLocationRelativeTo(null);
+		cadre.setLayout(null);
 
 		/*
 		Le gridBagConstraints va définir la position et la taille des éléments 
 		GridBagConstraints gbc = new GridBagConstraints();
 		*/
 
-		this.getContentPane().add(info);
-		this.getContentPane().add(aide);
-		this.getContentPane().add(aideInfo);
+		cadre.getContentPane().add(info);
+		cadre.getContentPane().add(aideInfo);
 		
 		
 		aideInfo.setBounds((l/2)-150, h/3, 300, 30);
 		info.setBounds((l/2)-100, h/2, 200 , 30);
-		aide.setBounds((l/2)-50,2*h/3,100,30);
 		/*
 		gbc.gridx = 0;
 		gbc.gridy = 0;		
@@ -103,13 +117,15 @@ public class Fenetre extends JFrame {
 		});
 		
 	
-		
 		info.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Dialog d = new Dialog(null, "Informations", true);
 				if(d.showDialog()) {
-					
-				};
+					cadre.revalidate();
+					creerPanneau(new PanneauBretagne());
+					cadre.getContentPane().add(retour);
+					retour.setBounds(10, 10, 90, 30);
+				}
 				//JOptionPane jop = new JOptionPane();
 				//if (!d.isAnnul()) {
 				//	jop.showMessageDialog(null, Info.toString(), "Aide aux infos", JOptionPane.INFORMATION_MESSAGE);
@@ -117,7 +133,14 @@ public class Fenetre extends JFrame {
 			}
 		});
 		
+		retour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cadre.revalidate();
+				creerPanneau(acceuil);
+				gestionBouton(retour,info,aideInfo,cadre,h,l);
+			}
+		});
 		
-		this.setVisible(true);
+		cadre.setVisible(true);
 	}
 }

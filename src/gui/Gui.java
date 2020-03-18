@@ -4,7 +4,7 @@ public class Gui {
 
 	public static void main(String[] args) {
 		
-		Fenetre logiciel = new Fenetre();
+		FenetreBis logiciel = new FenetreBis(new Panneau());
 
 	}
 

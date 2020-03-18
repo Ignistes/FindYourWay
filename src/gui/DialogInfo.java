@@ -25,7 +25,7 @@ public class DialogInfo {
 	
 
 	public boolean latitudeOK(String info) {
-		return false;
+		return true;
 	}
 
 	public boolean longitudeOK(String info) {
