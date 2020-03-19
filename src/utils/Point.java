@@ -16,8 +16,10 @@ public class Point {
 
 	public static Point GpsToBreizh(double hauteur, double largeur, Point point) {
 		return new Point(
-				largeur * ( point.ordonnee 	- 1.505404	) / 4.163826,
-				hauteur * ( point.abcisse 	- 46.996142	) / 2.294026);
+				largeur * ( point.abcisse 	- 1.505404	) / 4.163826,
+				hauteur * ( point.ordonnee 	- 46.996142	) / 2.294026);
+		
+		//res[i] = (int)((pointsX[i]-49.0)*500.0/-2.6);
 	}
 	public static Point BreizhToGps(double hauteur, double largeur, Point point) {
 		return new Point(0,0);

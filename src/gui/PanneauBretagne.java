@@ -23,7 +23,7 @@ public class PanneauBretagne extends JPanel {
     
 	Breizh bretagne = new Breizh(h,l);
 	
-	g.drawPolyline(bretagne.getPointsX(), bretagne.getPointsY(), bretagne.getPointsX().length);
+	g.drawPolyline(bretagne.getPointsX(),bretagne.getPointsY(), bretagne.getPointsX().length);
 	  
 	System.out.println(bretagne.getPointsX()[150]);
 	System.out.println(bretagne.getPointsY()[150]);
