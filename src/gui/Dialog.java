@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Dialog extends JDialog {
-	private DialogInfo Info = new DialogInfo();
+	public DialogInfo Info = new DialogInfo();
 	private boolean sendData;
 	private JLabel degreLaLabel, minuteLaLabel, secondeLaLabel, copoLaLabel, degreLoLabel, minuteLoLabel,
 			secondeLoLabel, copoLoLabel, vitesseLabel, tailleLabel;
@@ -129,12 +129,10 @@ public class Dialog extends JDialog {
 
 		okBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Info = new DialogInfo(taille.getText(), vitesse.getText(), degreLa.getText(), minuteLa.getText(),
-						secondeLa.getText(), copoLa.getText(), degreLo.getText(), minuteLo.getText(),
-						secondeLo.getText(), copoLo.getText());
-				ok = Info.infosOK();
+				setInfo(new DialogInfo(taille.getText(), vitesse.getText(), degreLa.getText(), minuteLa.getText(), secondeLa.getText(), copoLa.getText(), degreLo.getText(), minuteLo.getText(), secondeLo.getText(), copoLo.getText()));
+				ok = getInfo().infosOK();
 				JOptionPane jop = new JOptionPane();
-				jop.showMessageDialog(null, Info.toString(), "Vos informations", JOptionPane.INFORMATION_MESSAGE);
+				jop.showMessageDialog(null, getInfo().toString(), "Vos informations", JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);
 			}
 		});
@@ -157,8 +155,12 @@ public class Dialog extends JDialog {
 		return ok;
 	}
 
-	public DialogInfo getDInfo() {
+	public DialogInfo getInfo() {
 		return Info;
+	}
+
+	public void setInfo(DialogInfo info) {
+		Info = info;
 	}
 
 }

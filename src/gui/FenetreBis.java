@@ -15,9 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class FenetreBis {
+
+	JFrame cadre;
 	
-	JFrame cadre ;
-	static Dialog dialog;
+	public static Dialog dialog;
+	
+	public static DialogInfo getInf() {
+		return dialog.getInfo();
+	}
 	
 
 	public void creerPanneau(JPanel panneau) {
@@ -35,19 +40,19 @@ public class FenetreBis {
 		cadre.getContentPane().add(aideInfo);
 		aideInfo.setBounds((l / 2) - 150, h / 3, 300, 30);
 		info.setBounds((l / 2) - 100, h / 2, 200, 30);
-
 	}
 
 	public FenetreBis(JPanel panneau) {
 
 		JPanel acceuil = new Panneau();
+		JPanel bretagne = new PanneauBretagne();
 
 		// Les boutons de la page d'accueil
 		JButton info = new JButton("Entrez vos informations");
 		JButton aideInfo = new JButton("Comment entrer ses informations ?");
 		JButton retour = new JButton("Retour");
 
-		cadre = new javax.swing.JFrame("TIPE : Alexandre, Pierre et Louis");
+		cadre = new javax.swing.JFrame("FindYourWave");
 
 		// cadre.setSize(500, 500);
 
@@ -59,8 +64,6 @@ public class FenetreBis {
 
 		int h = (int) maximumWindowBounds.getHeight();
 		int l = (int) maximumWindowBounds.getWidth();
-
-		System.out.println(h + " " + l);
 
 		cadre.pack();
 		JFrame.setDefaultLookAndFeelDecorated(true);
@@ -116,12 +119,10 @@ public class FenetreBis {
 		info.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Dialog d = new Dialog(null, "Informations", true);
-
-
 				if (d.showDialog()) {
-
+					dialog = d;
 					cadre.revalidate();
-					creerPanneau(new PanneauBretagne());
+					creerPanneau(bretagne);
 					cadre.getContentPane().add(retour);
 					retour.setBounds(10, 10, 90, 30);
 				}
