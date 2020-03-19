@@ -38,7 +38,7 @@ public class PanneauBretagne extends JPanel {
 
 		try {
 			Image bateau = ImageIO.read(new File("image/pointer.png"));
-			g.drawImage(bateau, (int) ship.ordonnee-5, (int) ship.abcisse-15, 15, 30, this);
+			g.drawImage(bateau, (int) ship.ordonnee-5, (int) ship.abcisse-30, 15, 30, this);
 
 		} catch (IOException e) {
 			e.printStackTrace();
