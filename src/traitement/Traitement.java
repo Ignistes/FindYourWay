@@ -7,7 +7,7 @@ public class Traitement {
 		
 		System.out.println(capDeg(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" degrés");	//test de la fonction capDeg qui calcule le cap entre deux points	 
 		System.out.println(distanceDeAr(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" miles nautiques");	//test de la fonction distanceDeAr qui calcule la distance entre deux points	
-	
+		System.out.println(coordGeoDecLat(48,6,40.819,"N"));
 	}
 
 	

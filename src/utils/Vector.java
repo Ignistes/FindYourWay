@@ -2,9 +2,9 @@ package utils;
 import utils.Point;
 public class Vector {
 	
-	Point depart;
-	Point arrivee;
-	double vitesse;
+	public Point depart;
+	public Point arrivee;
+	public double vitesse;
 	
 	public Vector(Point debut, Point arrivee, double vitesse) {
 		depart = debut;
@@ -32,4 +32,5 @@ public class Vector {
 	public static double getVitesse(double fVert, double fHori) {
 		return Math.sqrt(fVert*fVert+fHori*fHori);
 	}
+	
 }

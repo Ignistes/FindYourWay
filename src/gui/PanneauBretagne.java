@@ -28,8 +28,6 @@ public class PanneauBretagne extends JPanel {
 	System.out.println(bretagne.getPointsX()[150]);
 	System.out.println(bretagne.getPointsY()[150]);
 	System.out.println(bretagne.getPointsX().length);
-
-
 	  
 	  /*
 	  try {
@@ -45,8 +43,6 @@ public class PanneauBretagne extends JPanel {
       e.printStackTrace();
     } 
     */
-    
-      
     
   }               
 }

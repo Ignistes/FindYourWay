@@ -17,7 +17,8 @@ import javax.swing.JPanel;
 public class FenetreBis {
 	
 	JFrame cadre ;
-
+	static Dialog dialog;
+	
 	public void creerPanneau(JPanel panneau) {
 		panneau.setSize(cadre.getSize());
 		cadre.setContentPane(panneau);
@@ -121,6 +122,7 @@ public class FenetreBis {
 			public void actionPerformed(ActionEvent arg0) {
 				Dialog d = new Dialog(null, "Informations", true);
 				if(d.showDialog()) {
+					dialog = d;
 					cadre.revalidate();
 					creerPanneau(new PanneauBretagne());
 					cadre.getContentPane().add(retour);
