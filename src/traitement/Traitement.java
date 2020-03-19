@@ -1,3 +1,4 @@
+
 package traitement;
 
 public class Traitement {
@@ -215,4 +216,5 @@ public class Traitement {
 	// faire une boucle if qui vérifie si le bateau n'est pas dans le polygone
 	//
 }
+
 	
