@@ -1,27 +1,109 @@
 package traitement;
 
 import utils.Vector;
+
 import utils.Point;
 import java.util.ArrayList;
-
+import utils.Vector;
+import gui.Dialog;
+import gui.DialogInfo;
 
 public class Traitement {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(capDeg(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" degrés");	//test de la fonction capDeg qui calcule le cap entre deux points	 
+		/*System.out.println(capDeg(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" degrés");	//test de la fonction capDeg qui calcule le cap entre deux points	 
 		System.out.println(distanceDeAr(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" miles nautiques");	//test de la fonction distanceDeAr qui calcule la distance entre deux points	
 		System.out.println(coordGeoDecLat(48, 6, 40.819, "N"));
+		*/
+		System.out.println(capRS(47.32, (-2.62), Point.GpsToBreizh(680, 1280, new Point(47.32,(-2.62))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.32,(-2.62))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.33,-2.66)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.33,-2.66)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 3.25)) ;
+		//System.out.println(Point.BreizhToGps(680, 1280, new Point( latXInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0), longYInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0, latXInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0)))).abcisse) ;
+		//System.out.print(latXInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0));
+		//System.out.println(latXInterRSetRF(2, 3, 3, 8, 5, 12, 2) );
+		//System.out.println(pointIntersectionXUn(2,3,2,2,2));
+		//System.out.println(capRS(47.38, (-2.86), Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6)) ;
+
 	}
 
 	
+
+	/**
+	@param latVectAr : latitude en coordonnées géographiques du point d'arrivée du vecteur courant
+	 * @param longVectAr : longitude en coordonnées géographiques du point d'arrivée du vecteur courant
+	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
+	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
+	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param distanceRS : distance de la RS = vitesse du bateau (1h)
+	 * @return cap de RS, c'est à dire la direction du vecteur RS 
+	 */
+	public static double capRS (double latVectAr, double longVectAr, double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
+		double cap = capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))));
+		return cap;
+	
+	}
+	
+	
+	public static double pointIntersectionXUn(double latX, double longY, double rayon, double coeffDir, double ordOrig) {
+		double a = 1 + coeffDir*coeffDir;
+		double b = (-2.0)*latX + 2.0*coeffDir*ordOrig - 2.0*coeffDir*longY;
+		double c = Math.pow(latX, 2) + Math.pow(longY, 2) + Math.pow(ordOrig, 2) - 2.0*ordOrig*longY - Math.pow(rayon, 2);
+		double x = 0;
+		double delta = Math.pow(b, 2) - 4.0*a*c;
+		if(delta > 0) {
+			 x = ((-b) + Math.sqrt(delta))/(2.0*a);
+		}
+		else {
+			if(delta == 0) {
+				 x = (-b)/(2.0*a);
+			}
+		}
+		
+		return x;
+	}
+	
+	
+	/**
+	 * 
+	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
+	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
+	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param distanceRS : distance de la RS = vitesse du bateau (pour 1h)
+	 * @return latitude en coordonnées x,y du point d'intersection entre la RS et la RF
+	 */
+	public static double latXInterRSetRF (double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
+		double latX = pointIntersectionX(pointIntersectionXUn(latXVectAr, longYVectAr, distanceRS, (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB ), pointIntersectionXDeux(latXVectAr, longYVectAr, distanceRS, (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB ), latXA, latXB);
+		return latX;
+	}
+	
+	
+	/**
+	 * 
+	 * 
+	}
 	
 	
 	
-	//calcule la distance en miles nautiques entre deux points (coordonnées géographiques)
-	//entrée : latitudes et longitudes des deux points ( convertis en degrés décimaux par les fonction : coordGeoDecLat et coordGeoDecLong
-	//sortie : distance en miles nautiques entre les deux points 
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param latDe : latitude en coordonnées géographiques du point de départ
+	 * @param longDe : longitude en coordonnées géographiques du point de départ
+	 * @param latAr : latitude en coordonnées géographiques du point d'arrivée
+	 * @param longAr : longitude en coordonnées géographiques du point d'arrivée
+	 * @return distance entre le point de départ et le point d'arrivée
+	 */
 	public static double distanceDeAr(double latDe, double longDe, double latAr, double longAr) {
 		double distance = Math.acos(Math.sin(Math.toRadians(latDe))
 							*Math.sin(Math.toRadians(latAr))
@@ -36,9 +118,16 @@ public class Traitement {
 	
 	
 	
-	//calcul le cap à prendre pour aller d'un point A à un point B
-	//entrée : latitudes et longitudes des deux points ( convertis en degrés décimaux par les fonctions : coordGeoDecLat et coordGeoDecLong)
-	//sortie : cap entre les deux points (direction du vecteur)
+	
+	
+	/**
+	 * 
+	 * @param latDe : latitude en coordonnées géographiques du point de départ
+	 * @param longDe : longitude en coordonnées géographiques du point de départ
+	 * @param latAr : latitude en coordonnées géographiques du point d'arrivée
+	 * @param longAr : longitude en coordonnées géographiques du point d'arrivée
+	 * @return cap ou direction entre le point de départ et le point d'arrivée
+	 */
 	public static double capDeg(double latDe, double longDe, double latAr, double longAr) {
 		double x = Math.log(Math.tan(Math.toRadians(latAr)/2 + 3.14/4)/Math.tan(Math.toRadians(latDe)/2 + 3.14/4));
 		double y = Math.abs(Math.toRadians(longDe) - (Math.toRadians(longAr)) );
@@ -47,9 +136,21 @@ public class Traitement {
 	}
 	
 		
-	//calcul de la latitude de la destination à partir d'un point A, d'une distance et d'une direction
-	//entrée : latitude du point de départ du vecteur, distance = vitesse (norme du vecteur)*temps (temps = 1h) donc distance = vitesse (noeuds), et de la direction du vecteur (cap)
-	//sortie : latitude du point d'arrivée du vecteur (en général du vecteur courant)
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param latDe : latitude en coordonnées géographiques du point de départ
+	 * @param distance : norme du vecteur
+	 * @param cap : direction du vecteur
+	 * @return latitude en coordonnées géographiques du point d'arrivée du vecteur
+	 */
 	public static double coordGeoLat(double latDe,double distance, double cap){
 		int rayonT = 6371;	//rayon de la Terre en km
 		double latAr = Math.asin(Math.sin(Math.toRadians(latDe))
@@ -61,9 +162,24 @@ public class Traitement {
 	}
 	
 	
-	//calcul de la longitude de la destination à partir d'un point A, d'une distance, d'une direction et de la latitude de B
-	//entrée : longitude du point de départ du vecteur, latitude du point de départ du vecteur, latitude du point d'arrivée du vecteur (foncion : coordGeoLat), de la direction du vecteur (cap), et de la distance = vitesse (norme du vecteur)*temps (temps = 1h) donc distance = vitesse (noeuds)
-	//sortie : longitude du point d'arrivée du vecteur (souvent vecteur courant)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param longDe : longitude en coordonnées géographiques du point de départ
+	 * @param latDe : latitude en coordonnées géographiques du point de départ
+	 * @param latAr : latitude en coordonnées géographiques du point d'arrivée
+	 * @param cap : direction du vecteur
+	 * @param distance : norme du vecteur
+	 * @return longitude en coordonnées géographiques du point d'arrivée du vecteur
+	 */
 	public static double coordGeoLong(double longDe, double latDe, double latAr, double cap, double distance) {
 		int rayonT = 6371;	//rayon de la Terre en km
 		double y = Math.sin(Math.toRadians(cap))
@@ -78,88 +194,86 @@ public class Traitement {
 	}
 
 
-	/*public static double capRouteS (double latDe, double longDe, double capCourant, double temps, double vitesseC, double vitesseB) {
-		double latPntC = coordGeoLat(latDe, vitesseC*temps,capCourant);	//latitude du point à la fin du vecteur courant
-		double longPntC = coordGeoLong(longDe, latDe, latPntC, capCourant, vitesseC*temps);	//longitude du point à la fin du vecteur courant
-		double distanceVectRs = vitesseB;	//prendre une heure pour tous les vecteurs
-	}
-	*/
 	
-
-	//A voir si une classe vecteur est utile
-	public class Vecteur{
-		private double direction;
-		private double sens;
-		private double norme;
-		private double latPtnDe;
-		private double longPntDe;
-		
-		
-		public Vecteur(double direction, double sens, double norme, double latPtnDe, double longPntDe) {
-			this.direction = direction;
-			this.sens = sens;
-			this.norme = norme;
-			this.latPtnDe = latPtnDe;
-			this.longPntDe = longPntDe;
-		}
-		
-		
-	}
 	
-	// equation d'un cercle : (x-a)^2 + (y-b)^2 = r^2
-	// equation d'une droite : y = a*x + b
-	// intersection entre un cercle et une droite : (x-a)^2 + (y-b)^2 - r^2 = a*x + b - y 
 	
 
 	
 	
-	// première solution ou solution double de l'équation : ax^2 + bx + c 
-	//entrée : latitude du centre du cercle de (rayon = distance Route Surface = vitesse du bateau (car temps =  1h)) , longitude du centre du cercle, rayon, coeff directeur et ordonnée à l'origine de la droite porté par le vecteur de la Route Vraie (Route de Fond), 
-	//sortie : première solution de l'intersection entre le cercle et la droite
-	public static double pointIntersectionXUn(double latX, double longY, double rayon, double coeffDir, double ordOrig) {
-		double a = 1 + coeffDir;
+	
+	
+	
+	/**
+	 * 
+	 * @param latx : latitude en coordonnée x,y du point d'arrivée du vecteur courant
+	 * @param longy : longitude en coordonnée x,y du point d'arrivée du vecteur courant
+	 * @param rayon : distance de la RS = vitesse du bateau (1h)
+	 * @param coeffDir : coefficient directeur de la droite (AB)
+	 * @param ordOrig : ordonnée à l'origine de la droite (AB)
+	 * @return première solution x de l'intersection entre le cercle, de rayon égal à la distance RS, et la droite (AB)
+	 */
+	
+	
+	
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param latx : latitude en coordonnée x,y du point d'arrivée du vecteur courant
+	 * @param longy : longitude en coordonnée x,y du point d'arrivée du vecteur courant
+	 * @param rayon : distance de la RS = vitesse du bateau (1h)
+	 * @param coeffDir : coefficient directeur de la droite (AB)
+	 * @param ordOrig : ordonnée à l'origine de la droite (AB)
+	 * @return deuxième solution x de l'intersection entre le cercle, de rayon égal à la distance RS, et la droite (AB)
+	 */
+	public static double pointIntersectionXDeux(double latX, double longY, double rayon, double coeffDir, double ordOrig) {
+		double a = 1 + coeffDir*coeffDir;
 		double b = (-2)*latX + 2*coeffDir*ordOrig - 2*coeffDir*longY;
-		double c = Math.pow(latX, 2) + Math.pow(ordOrig, 2) - Math.pow(rayon, 2) + longY*(longY - 2*ordOrig);
+		double c = Math.pow(latX, 2) + Math.pow(longY, 2) + Math.pow(ordOrig, 2) - 2*ordOrig*longY - Math.pow(rayon, 2);
 		double x = 0;
 		double delta = Math.pow(b, 2) - 4*a*c;
 		if(delta > 0) {
-			 x = (b + Math.sqrt(delta))/(2*a);
+			 x = ((-b) - Math.sqrt(delta))/(2*a);
 		}
 		else {
 			if(delta == 0) {
-				 x = b/(2*a);
+				 x = (-b)/(2*a);
 			}
 		}
 		
 		return x;
-		
 	}
 	
-	//deuxième solution ou solution double de l'équation : ax^2 + bx + c
-	//entrée : latitude du centre du cercle de (rayon = distance Route Surface = vitesse du bateau (car temps =  1h)) , longitude du centre du cercle, rayon, coeff directeur et ordonnée à l'origine de la droite porté par le vecteur de la Route Vraie (Route de Fond), 
-	//sortie : deuxième solution de l'intersection entre le cercle et la droite
-	public static double pointIntersectionXDeux(double latx, double longy, double rayon, double coeffDir, double ordOrig) {
-		double a = 1 + coeffDir;
-		double b = (-2)*latx + 2*coeffDir*ordOrig - 2*coeffDir*longy;
-		double c = Math.pow(latx, 2) + Math.pow(ordOrig, 2) - Math.pow(rayon, 2) + longy*(longy - 2*ordOrig);
-		double x = 0;
-		double delta = Math.pow(b, 2) - 4*a*c;
-		if(delta > 0) {
-			 x = (b - Math.sqrt(delta))/(2*a);
-		}
-		else {
-			if(delta == 0) {
-				 x = b/(2*a);
-			}
-		}
-		
-		return x;
-		
-	}
 	
-	//coordonnée x du point d'intersection entre le cercle et la droite entre le point de départ et le point d'arrivée de celle-ci
-	//entrée : deux points d'intersection entre le cercle et la droite, point de départ et point d'arrivée
-	//sortie : la coordonée x du point le plus proche du point d'arrivée qui correspond au point qui va nous permettre de déterminer le cap de la route surface
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param xUn : première solution x de l'intersection entre un cercle et une droite
+	 * @param xDeux : deuxième solution x de l'intersection entre un cercle et une droite
+	 * @param xA : coordonnée x du point de départ du bateau
+	 * @param xB : coordonnée x du point d'arrivée du bateau
+	 * @return la coordonnée x du point d'intersection entre un cercle et une droite
+	 */
 	public static double pointIntersectionX (double xUn, double xDeux, double xA, double xB) {
 		double x = 0;
 		if ((Math.abs(xB) - Math.abs(xUn)) <= (Math.abs(xB) - Math.abs(xDeux))) {
@@ -172,18 +286,44 @@ public class Traitement {
 		return x;
 	}
 	
-	//coordonnée y du point d'intersection entre le cercle et la droite entre le point de départ et le point d'arrivée de celle-ci
-	//entrée : coeff directeur et ordonnée à l'origine de la droite portée par le vecteur de la route vraie, la coordonée x du point le plus proche du point d'arrivée qui correspond au point qui va nous permettre de déterminer le cap de la route surface (résulatat de la fonction : pointIntersectionX)
-	//sortie : la coordonnée y du point le plus proche du point d'arrivée qui correspond au point qui va nous permettre de déterminer le cap de la route surface
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param coeffDir
+	 * @param ordOrig
+	 * @param x
+	 * @return la coordonnée y du point d'intersection entre un cercle et une droite
+	 */
 	public static double pointIntersectionY (double coeffDir, double ordOrig, double x) {
 		double y = coeffDir*x + ordOrig;
 		return y;
 	}
 	
 	
-	//latitude convertie en degrés décimaux
-	//entrée : degré, minute, seconde
-	//sortie : latitude en degrés décimaux
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param deg
+	 * @param minute
+	 * @param sec
+	 * @param pntCard
+	 * @return latitude en coordonnées géographiques du point en degrés décimaux
+	 */
 	public static double coordGeoDecLat (int deg, int minute, double sec, String pntCard) {
 		double latX = 0;
 		if(pntCard.equalsIgnoreCase("n")) {
@@ -197,9 +337,23 @@ public class Traitement {
 		return latX;
 	}
 	
-	//longitude convertie en degres décimaux
-	//entrée : degré, minute, seconde
-	//sortie : longitude en degrés décimaux
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param deg
+	 * @param minute
+	 * @param sec
+	 * @param pntCard
+	 * @return longitude en coordonnées géographiques du point en degrés décimaux
+	 */
 	public static double coordGeoDecLong(int deg, int minute, double sec, String pntCard) {
 		double longX = 0;
 		if(pntCard.equalsIgnoreCase("e")) {
@@ -215,54 +369,184 @@ public class Traitement {
 	
 	
 	
+
 	
 	
-	public static double latXInterRSetRF (double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
-		double latX = pointIntersectionX(pointIntersectionXUn(latXVectAr, longYVectAr, distanceRS, (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB ), pointIntersectionXDeux(latXVectAr, longYVectAr, distanceRS, (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB ), latXA, latXB);
-		return latX;
-	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
+	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
+	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param distanceRS : distance de la RS = vitesse du bateau (pour 1h)
+	 * @param latX : latitude en coordonnées x,y du point d'intersection entre la RS et la RF
+	 * @return longitude en coordonnées x,y du point d'intersection entre la RS et la RF
+	 */
 	public static double longYInterRSetRF (double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS, double latX) {
 		double longY = pointIntersectionY( (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS));
 		return longY;
 	}
 	
 	
-	// convertir latX et lat en degré
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param latX : latitude, en coordonnées x,y, du point d'intersection entre la RS et la RF 
+	 * @param longY : longitude, en coordonnées x,y, du point d'intersection entre la RS et la RF
+	 * @return latitude, en coordonnées géographiques, du point d'intersection entre la RS et la RF
+	 */
 	public static double latInterRSetRF (double latX, double longY) {
-		return Point.BreizhToGps(45.0, 54.0, new Point(latX, longY)).abcisse;
+		return Point.BreizhToGps(680, 1280, new Point(latX, longY)).abcisse;
 	}
 	
-	//convertir longY et long en degré
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param latX : latitude, en coordonnées x,y, du point d'intersection entre la RS et la RF 
+	 * @param longY : longitude, en coordonnées x,y, du point d'intersection entre la RS et la RF
+	 * @return longitude, en coordonnées géographiques, du point d'intersection entre la RS et la RF
+	 */
 	public static double longInterRSetRF (double latX, double longY) {
-		return Point.BreizhToGps(45.0, 54.0, new Point(latX, longY)).ordonnee;
-	}
-	
-	public static double capRS (double latVectAr, double longVectAr, double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
-		double cap = capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))));
-		return cap;
+		return Point.BreizhToGps(680, 1280, new Point(latX, longY)).ordonnee;
 	}
 	
 	
-	public static double lkjjd (Vector[] tabVect, double latA, double longA, double latB, double longB ) {
-		
-		
-		
-		int i = 0;
-		while(capDeg(tabVect[i].depart.abcisse, tabVect[i].depart.ordonnee, tabVect[i].arrivee.abcisse, tabVect[i].arrivee.ordonnee) == capDeg(tabVect[i+1].depart.abcisse, tabVect[i+1].depart.ordonnee, tabVect[i+1].arrivee.abcisse, tabVect[i+1].arrivee.ordonnee) && distanceDeAr(tabVect[i].depart.abcisse, tabVect[i].depart.ordonnee, tabVect[i].arrivee.abcisse, tabVect[i].arrivee.ordonnee) == distanceDeAr(tabVect[i+1].depart.abcisse, tabVect[i+1].depart.ordonnee, tabVect[i+1].arrivee.abcisse, tabVect[i+1].arrivee.ordonnee)) {
-			i++;
-		}
-		
-		double capUn = capRS (tabVect[i].arrivee.abcisse, tabVect[i].arrivee.ordonnee, Point.GpsToBreizh(45.0, 54.0, tabVect[i].arrivee).abcisse, Point.GpsToBreizh(45.0, 54.0, tabVect[i].arrivee).ordonnee, Point.GpsToBreizh(45.0, 54.0, new Point(latA,longA)).abcisse, Point.GpsToBreizh(45.0, 54.0, new Point(latA,longA)).ordonnee, Point.GpsToBreizh(45.0, 54.0, new Point(latB, longB)).abcisse, Point.GpsToBreizh(45.0, 54.0, new Point(latB, longB)).ordonnee, 5.0 );
-		return capUn;
 	
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	
 	
 	
-	// faire une boucle if qui vérifie si le bateau n'est pas dans le polygone
-	//
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param tabVect : tableau de vecteurs courants
+	 * @param latA : latitude en coordonnées géographiques du point de départ du bateau
+	 * @param longA : longitude en coordonnées géographiques du point de départ du bateau
+	 * @param latB : latitude en coordonnées géographiques du point d'arrivée du bateau
+	 * @param longB : longitude en coordonnées géographiques du point d'arrivée du bateau
+	 * @return le tableau de caps à prendre pour aller au point B en fonction des vecteurs courants
+	 */
+	public static double[] lkjjd (Vector[] tabVect, double latA, double longA, double latB, double longB ) {
+		
+		
+		int nbCap = 0;
+		for(int k = 0; k < tabVect.length; k++) {
+			if(capDeg(tabVect[k].depart.abcisse, tabVect[k].depart.ordonnee, tabVect[k].arrivee.abcisse, tabVect[k].arrivee.ordonnee) != capDeg(tabVect[k+1].depart.abcisse, tabVect[k+1].depart.ordonnee, tabVect[k+1].arrivee.abcisse, tabVect[k+1].arrivee.ordonnee) || distanceDeAr(tabVect[k].depart.abcisse, tabVect[k].depart.ordonnee, tabVect[k].arrivee.abcisse, tabVect[k].arrivee.ordonnee) != distanceDeAr(tabVect[k+1].depart.abcisse, tabVect[k+1].depart.ordonnee, tabVect[k+1].arrivee.abcisse, tabVect[k+1].arrivee.ordonnee)) {
+				nbCap = nbCap + 1;
+			}
+		}
+		
+		
+		double tabCap [] = new double[nbCap];
+		int i = 0;
+		int cmpt = 0;
+		for(int j = 0; j < tabCap.length; j++) {
+			cmpt = i;
+			i = i+1;
+			while(capDeg(tabVect[i].depart.abcisse, tabVect[i].depart.ordonnee, tabVect[i].arrivee.abcisse, tabVect[i].arrivee.ordonnee) == capDeg(tabVect[i+1].depart.abcisse, tabVect[i+1].depart.ordonnee, tabVect[i+1].arrivee.abcisse, tabVect[i+1].arrivee.ordonnee) && distanceDeAr(tabVect[i].depart.abcisse, tabVect[i].depart.ordonnee, tabVect[i].arrivee.abcisse, tabVect[i].arrivee.ordonnee) == distanceDeAr(tabVect[i+1].depart.abcisse, tabVect[i+1].depart.ordonnee, tabVect[i+1].arrivee.abcisse, tabVect[i+1].arrivee.ordonnee)) {
+				i++;
+			}
+		//	tabCap[j] = capRS (tabVect[cmpt].arrivee.abcisse, tabVect[cmpt].arrivee.ordonnee, Point.GpsToBreizh(45.0, 54.0, tabVect[cmpt].arrivee).abcisse, Point.GpsToBreizh(45.0, 54.0, tabVect[cmpt].arrivee).ordonnee, Point.GpsToBreizh(45.0, 54.0, new Point(latA,longA)).abcisse, Point.GpsToBreizh(45.0, 54.0, new Point(latA,longA)).ordonnee, Point.GpsToBreizh(45.0, 54.0, new Point(latB, longB)).abcisse, Point.GpsToBreizh(45.0, 54.0, new Point(latB, longB)).ordonnee, Dialog.info[2]);
+		}
+		
+		return tabCap;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/**
+ * 	
+ * @param latA : latitude en coordonnées géographiques du point de départ du bateau
+ * @param longA : longitude en coordonnées géographiques du point de départ du bateau
+ * @param ports : tableau des points en coordonnées géographiques de tous les ports de Bretagne
+ * @return : le tableau des quatre ports où leur distance, qui les séparent avec le point du départ du bateau, est la plus courte par rapport aux autres ports
+ */
+public static Point[] quatrePortsLesPlusProches (double latA, double longA, Point[]ports) {
+		
+		Point portsPlusProches[] = new Point[4];
+		 for(int j = 1 ; j <= 4 ; j++) {
+			 for (int i = 0; i < ports.length - j; i++) {
+					if(distanceDeAr(latA,longA,ports[i].abcisse, ports[i].ordonnee) < distanceDeAr(latA,longA,ports[i+1].abcisse, ports[i+1].ordonnee)) {
+						Point c = ports[i];
+						ports[i] = ports[i+1];
+						ports[i+1] = c;
+					}
+				}
+				portsPlusProches[j-1] = ports[ports.length - j];
+		 }
+		return portsPlusProches;
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+
 	
