@@ -24,6 +24,18 @@ public class Point {
 	//(int)((pointsX[i]-46.996142)*hauteur/2.294026);
 	//(int)(((-1.0*pointsY[i])-1.505404)*largeur/4.163826);
 	public static Point BreizhToGps(double hauteur, double largeur, Point point) {
-		return new Point(0,0);
+		int X = (int)point.abcisse;
+		int Y = (int)point.ordonnee;
+		double lat = (hauteur/2 + (X-(hauteur/2))*Math.cos(Math.PI) - (Y-(largeur/2))*Math.sin(Math.PI));
+		double lon = (largeur/2 + (X-(hauteur/2))*Math.sin(Math.PI) + (Y-(largeur/2))*Math.cos(Math.PI));
+		//System.out.println("RotationX : "+lat);
+		//System.out.println("RotationY : "+lon);
+		lat = ((2.294026*lat)/hauteur) + 46.996142;
+		lon = (-(4.163826*lon)/largeur) - 1.505404;
+		return new Point(lat,lon);
+	}
+	@Override
+	public String toString() {
+		return "Abcisse : " + abcisse + "\n" + "Ordonnees : "+ordonnee;
 	}
 }
