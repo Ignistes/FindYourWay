@@ -9,6 +9,17 @@ import gui.Dialog;
 import gui.DialogInfo;
 
 public class Traitement {
+	
+	
+	// A faire demain : 
+	// - demander à Pierre comment obtenir hauteur et largeur suivant les écrans
+
+	
+	
+	
+	
+	
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -475,6 +486,7 @@ public class Traitement {
 	}
 	
 	
+	//Attention ALexandre : J'ai pris comme hauteur et largeur les dimensions correspondant à mon écran !
 	// pour Alexandre
 	/**
 	 * 
@@ -512,6 +524,6 @@ public class Traitement {
 	}
 	
 }
-	
+	//Pour les points A, il faut demander à Pierre.
 	
 		
