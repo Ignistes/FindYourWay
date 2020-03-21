@@ -15,7 +15,7 @@ public class Breizh {
 	/**
 	 * @param hauteurFenetre La hauteur de la fenetre
 	 * @param largeurFenetre La largeur de la fenetre
-	 * Cr�er un objet Bretagne adapte a la taille de la fenetre
+	 * Creer un objet Bretagne adapte a la taille de la fenetre
 	 */
 	public Breizh(double hauteurFenetre, double largeurFenetre) {
 		int[] pointsInterX = Xreturn(hauteurFenetre);
@@ -42,7 +42,6 @@ public class Breizh {
 	public int[] getPointsY() {
 		return pointsY;
 	}
-	
 	
 	
 	//C EST PRIVE !!!

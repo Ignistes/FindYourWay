@@ -33,4 +33,9 @@ public class Vector {
 		return Math.sqrt(fVert*fVert+fHori*fHori);
 	}
 	
+	@Override
+	public String toString() {
+		return "Point depart : \n" + depart.toString() + "\nPoint arrivee : \n" + arrivee.toString() + "\nVitesse : " + vitesse + " m/s"; 
+	}
+	
 }
