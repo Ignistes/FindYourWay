@@ -46,7 +46,7 @@ public class Traitement {
 		//System.out.print(distanceXY(47.33, -2.66, 47.3, -2.51));
 		//System.out.println(quatrePortsLesPlusProches(48.587706, -5.04316, Point.getPort()));
 		//System.out.println(Point.getPort());
-		quatrePortsLesPlusProchesEssai(48.587706, -5.04316, Point.getPort());
+		affichageQuatrePortsLesPlusProches(48.587706, -5.04316, Point.getPort());
 	}
 
 	
@@ -374,7 +374,7 @@ public class Traitement {
 	 * @param longB : longitude en coordonnées géographiques du point d'arrivée du bateau
 	 * @return le tableau de caps à prendre pour aller au point B en fonction des vecteurs courants
 	 */
-	public static double[] lkjjd (Vector[] tabVect, double latA, double longA, double latB, double longB ) {
+	public static double[] tabCapUnPointB (Vector[] tabVect, double latA, double longA, double latB, double longB ) {
 		
 		
 		int nbCap = 0;
@@ -399,6 +399,26 @@ public class Traitement {
 		
 		return tabCap;
 	
+	}
+	
+	
+	/**
+	 * 
+	 * @param latA : latitude en coordonnées gps du point de départ du bateau
+	 * @param longA : longitude en coordonnées gps du point de départ du bateau
+	 * @param quatrePorts : tableau de type Point des quatre ports les plus proches du point de départ du bateau
+	 * @param tabVect : tabeau de type Vector des vecteurs courants sur la droite (AB)
+	 * @return : le tableau de type double,double de la liste des caps pour les 4 ports les plus proches du point de départ du bateau
+	 */
+	public static double[][] tabCapQuatrePorts (double latA, double longA, Point[] quatrePorts, Vector[] tabVect){
+		
+		double tabCapQuatrePorts[][] = new double[tabCapUnPointB(tabVect, latA, longA, quatrePorts[0].abcisse, quatrePorts[0].ordonnee).length][4];
+		for(int i = 0; i < tabCapQuatrePorts[0].length; i++) {
+			for(int j = 0; j < tabCapQuatrePorts.length; j++) {
+				tabCapQuatrePorts[j][i] = tabCapUnPointB(tabVect, latA, longA, quatrePorts[i].abcisse, quatrePorts[i].ordonnee)[j]; 
+			}
+		}
+		return tabCapQuatrePorts;
 	}
 	
 	
@@ -433,7 +453,7 @@ public class Traitement {
 	 * @param ports : tableau des ports de Bretagne
 	 * 				Affiche le tableau des 4 ports les plus proches du point de départ du bateau
 	 */
-	public static void quatrePortsLesPlusProchesEssai (double latA, double longA, Point[]ports) {
+	public static void affichageQuatrePortsLesPlusProches (double latA, double longA, Point[]ports) {
 		
 		Point portsPlusProches[] = new Point[4];
 		 for(int j = 1 ; j <= 4 ; j++) {
