@@ -47,7 +47,8 @@ public class Traitement {
 		//System.out.print(distanceXY(47.33, -2.66, 47.3, -2.51));
 		//System.out.println(quatrePortsLesPlusProches(48.587706, -5.04316, Point.getPort()));
 		//System.out.println(Point.getPort());
-		affichageQuatrePortsLesPlusProches(47.495571, -3.505096, Point.getPort());
+		//affichageQuatrePortsLesPlusProches(47.495571, -3.505096, Point.getPort());
+		//affQuatrePortsLesPlusProches();
 	}
 
 	
@@ -325,6 +326,7 @@ public class Traitement {
 	}
 	
 	
+	
 	/**
 	 * 
 	 * @param latX : latitude, en coordonnées x,y, du point d'intersection entre la RS et la RF 
@@ -359,6 +361,7 @@ public class Traitement {
 	 * @param longB : longitude en coordonnées géographiques du point d'arrivée du bateau
 	 * @return le tableau de caps à prendre pour aller au point B en fonction des vecteurs courants
 	 */
+	/*
 	public static double[] tabCapUnPointB (Vector[] tabVect, double latA, double longA, double latB, double longB ) {
 		
 		
@@ -385,6 +388,7 @@ public class Traitement {
 		return tabCap;
 	
 	}
+	*/
 	
 	
 	
@@ -460,11 +464,6 @@ public class Traitement {
 	}
 	
 	/**
-	 * 
-	 * @param latA : latitude en coordonnées gps du point de départ du bateau
-	 * @param longA : longitude en coordonnées gps du point de départ du bateau
-	 * @param quatrePorts : tableau de type Point des quatre ports les plus proches du point de départ du bateau
-	 * @param tabVect : tabeau de type Vector des vecteurs courants sur la droite (AB)
 	 * @return : le tableau de type double,double de la liste des caps pour les 4 ports les plus proches du point de départ du bateau
 	 */
 	public static double[][] tabCapQuatrePorts (){
@@ -502,10 +501,6 @@ public class Traitement {
 	//System.out.print(afficheTapCapQuatrePorts(48.5877,-5.0431,quatrePortsLesPlusProches (48.5877, -5.0431, Point.getPort()),Courant.getCourant(coeffDir()))
 	
 	/**
-	 * 	
-	 * @param latA : latitude en coordonnées géographiques du point de départ du bateau
-	 * @param longA : longitude en coordonnées géographiques du point de départ du bateau
-	 * @param ports : tableau des points en coordonnées géographiques de tous les ports de Bretagne
 	 * @return : le tableau des quatre ports où leur distance, qui les séparent avec le point du départ du bateau, est la plus courte par rapport aux autres ports
 	 */
 	public static Point[] quatrePortsLesPlusProches () {
@@ -524,6 +519,11 @@ public class Traitement {
 			return portsPlusProches;
 	}
 	
+	public static void affQuatrePortsLesPlusProches() {
+		for(int i = 0; i < quatrePortsLesPlusProches().length; i++) {
+			System.out.println(quatrePortsLesPlusProches ()[i]);
+		}
+	}
 
 	/**
 	 * 
@@ -532,6 +532,7 @@ public class Traitement {
 	 * @param ports : tableau des ports de Bretagne
 	 * 				Affiche le tableau des 4 ports les plus proches du point de départ du bateau
 	 */
+	/*
 	public static void affichageQuatrePortsLesPlusProches (double latA, double longA, Point[]ports) {
 		
 		Point portsPlusProches[] = new Point[4];
@@ -547,14 +548,9 @@ public class Traitement {
 				System.out.print(portsPlusProches[j-1]+"\n");
 		 }	
 	}
-
+*/
 
 	/**
-	 * 
-	 * @param latA : latitude en coordonnées gps du point de départ du bateau
-	 * @param longA : longitude en coordonnées gps du point de départ du bateau
-	 * @param latB : latitude en coordonnées gps du point d'arrivée du bateau
-	 * @param longB : longitude en coordonnées gps du point d'arrivée du bateau
 	 * @return : le coefficient directeur de la droite (AB)
 	 */
 	public static double[] coeffDir () {
@@ -571,11 +567,6 @@ public class Traitement {
 	
 	
 	/**
-	 * 
-	 * @param latA : latitude en coordonnées gps du point de départ du bateau
-	 * @param longA : longitude en coordonnées gps du point de départ du bateau
-	 * @param latB : latitude en coordonnées gps du point d'arrivée du bateau
-	 * @param longB : longitude en coordonnées gps du point d'arrivée du bateau
 	 * @return : l'ordonnée à l'origine de la droite (AB)
 	 */
 	public static double[] ordOrig () {
@@ -591,34 +582,8 @@ public class Traitement {
 	}
 	
 	
-	//Attention ALexandre : J'ai pris comme hauteur et largeur les dimensions correspondant à mon écran !
-	// pour Alexandre
-	/**
-	 * 
-	 * @param quatrePorts : quatre les ports plus de proches de A
-	 * @param latA : latitude du point de départ du bateau en coordonnnées gps
-	 * @param longA : longitude du point de départ du bateau en coordonnnées gps
-	 * @return : un tableau de type double qui comporte, à chaque ligne,
-	 * 			 une colonne correspondant au coeffcicient de la droite (AB),
-	 * 			et une colonne correspondant à l'ordonnée à l'origine de la droite (AB)
-	 */
-	/*
-	public static double[][] tabCoeffPlusOrdorig (Point[] quatrePorts, double latA, double longA) {
-		double [][] coeffPlusOrdorig = new double[4][2];
-		for(int i = 0; i < coeffPlusOrdorig.length; i++) {
-			for(int j = 0; j < coeffPlusOrdorig[i].length; j++) {
-				coeffPlusOrdorig[i][j] = coeffDir(latA, longA, quatrePorts[i].abcisse, quatrePorts[i].ordonnee);
-				coeffPlusOrdorig[i][j+1] = ordOrig(latA, longA, quatrePorts[i].abcisse, quatrePorts[i].ordonnee);
-			}
-		}
-		return coeffPlusOrdorig;
-	}
-	*/
 	
-	//pour Alexandre
 	/**
-	 * 
-	 * @param quatrePorts : quatre les ports plus de proches de A
 	 * @return : un tableau de type Point avec les points des ports en coordonnées Breizh (les points B)
 	 */
 	public static Point[] tabPointsB () {
@@ -630,6 +595,6 @@ public class Traitement {
 	}
 	
 }
-	//Pour les points A, il faut demander à Pierre.
+	
 	
 		
