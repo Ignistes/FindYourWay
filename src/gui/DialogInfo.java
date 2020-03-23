@@ -5,7 +5,7 @@ import traitement.Traitement;
 public class DialogInfo {
 	private String taille, vitesse, degreLo, minuteLo, secondeLo, copoLo, degreLa, minuteLa, secondeLa, copoLa;
 	private String longitude, latitude;
-
+	public static double[] info;
 	public DialogInfo() {
 	}
 
@@ -54,6 +54,7 @@ public class DialogInfo {
 		} catch (Exception e){
 			return null;
 		}
+		info = infos;
 		return infos;
 		
 	}

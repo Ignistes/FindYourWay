@@ -4,6 +4,8 @@ import utils.Vector;
 
 import utils.Point;
 import java.util.ArrayList;
+
+import courant.Courant;
 import utils.Vector;
 import gui.Dialog;
 import gui.DialogInfo;
@@ -14,7 +16,6 @@ public class Traitement {
 	// A faire demain : 
 	// - demander à Pierre comment obtenir hauteur et largeur suivant les écrans
 
-	
 	
 	
 	
@@ -46,7 +47,7 @@ public class Traitement {
 		//System.out.print(distanceXY(47.33, -2.66, 47.3, -2.51));
 		//System.out.println(quatrePortsLesPlusProches(48.587706, -5.04316, Point.getPort()));
 		//System.out.println(Point.getPort());
-		affichageQuatrePortsLesPlusProches(48.587706, -5.04316, Point.getPort());
+		affichageQuatrePortsLesPlusProches(47.495571, -3.505096, Point.getPort());
 	}
 
 	
@@ -346,23 +347,7 @@ public class Traitement {
 	}
 	
 	
-	/**
-	@param latVectAr : latitude en coordonnées géographiques du point d'arrivée du vecteur courant
-	 * @param longVectAr : longitude en coordonnées géographiques du point d'arrivée du vecteur courant
-	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
-	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
-	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
-	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
-	 * @param distanceRS : distance de la RS = vitesse du bateau (1h)
-	 * @return cap de RS, c'est à dire la direction du vecteur RS 
-	 */
-	public static double capRS (double latVectAr, double longVectAr, double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
-		double cap = capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))));
-		return cap;
 	
-	}
 	
 	
 	/**
@@ -402,6 +387,78 @@ public class Traitement {
 	}
 	
 	
+	
+	/*
+	public static double[] tabCapUnPointBEssai () {
+		
+		int nbCap = 0;
+		for(int k = 0; k < Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0]).length; k++) {
+			if(capDeg(Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].depart.abcisse, Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].depart.ordonnee, Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].arrivee.ordonnee)
+				!= capDeg(Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].arrivee.ordonnee)
+				|| distanceDeAr(Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].depart.abcisse, Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].depart.ordonnee, Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[k], ordOrig()[k], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k])[k].arrivee.ordonnee)
+				!= distanceDeAr(Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[k+1], ordOrig()[k+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[k+1])[k+1].arrivee.ordonnee)) {
+				nbCap = nbCap + 1;
+			}
+		}
+		double tabCap [] = new double[nbCap];
+		int i = 0;
+		int cmpt = 0;
+		for(int j = 0; j < tabCap.length; j++) {
+			cmpt = i;
+			i = i+1;
+			Vector a = Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i])[i];
+			Vector b = Courant.getCourant(coeffDir()[i+1], ordOrig()[i+1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i+1])[i+1];
+			while(capDeg(a.depart.abcisse, a.depart.ordonnee, a.arrivee.abcisse, a.arrivee.ordonnee) 
+					== capDeg(b.depart.abcisse, b.depart.ordonnee, b.arrivee.abcisse, b.arrivee.ordonnee)
+					&& distanceDeAr(a.depart.abcisse, a.depart.ordonnee, a.arrivee.abcisse, a.arrivee.ordonnee) 
+					== distanceDeAr(b.depart.abcisse, b.depart.ordonnee, b.arrivee.abcisse, b.arrivee.ordonnee)) {
+				i++;
+			}
+			Vector [] tab = Courant.getCourant(coeffDir()[cmpt], ordOrig()[cmpt], new Point(DialogInfo.info[1], DialogInfo.info[0]), )
+			tabCap[j] = capRS (tabVect[cmpt].arrivee.abcisse, tabVect[cmpt].arrivee.ordonnee, Point.GpsToBreizh(45.0, 54.0, tabVect[cmpt].arrivee).abcisse, Point.GpsToBreizh(45.0, 54.0, tabVect[cmpt].arrivee).ordonnee, Point.GpsToBreizh(45.0, 54.0, new Point(latA,longA)).abcisse, Point.GpsToBreizh(45.0, 54.0, new Point(latA,longA)).ordonnee, Point.GpsToBreizh(45.0, 54.0, new Point(latB, longB)).abcisse, Point.GpsToBreizh(45.0, 54.0, new Point(latB, longB)).ordonnee, DialogInfo.info[2]);
+		}
+		
+		return tabCap;
+		
+		
+	}
+	*/
+	
+	
+	
+	
+	
+	/*
+	public static int nbCapMax (double latA, double longA) {
+		int nbCap = 0;
+		for(int k = 0; k < 1000; k++) {
+			if(capDeg(Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].arrivee.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].arrivee.ordonnee) != capDeg(Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].arrivee.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].arrivee.ordonnee) || distanceDeAr(Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].arrivee.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k].ordonnee))[k].arrivee.ordonnee) != distanceDeAr(Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].depart.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].depart.ordonnee, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].arrivee.abcisse, Courant.getCourant(coeffDir(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), ordOrig(latA, longA, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee), new Point(latA,longA), new Point(quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].abcisse, quatrePortsLesPlusProches(latA, longA, Point.getPort())[k+1].ordonnee))[k+1].arrivee.ordonnee)) {
+			nbCap = nbCap + 1;
+			}
+		}
+	}
+	*/
+	
+	
+	
+	/**
+	@param latVectAr : latitude en coordonnées géographiques du point d'arrivée du vecteur courant
+	 * @param longVectAr : longitude en coordonnées géographiques du point d'arrivée du vecteur courant
+	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
+	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
+	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
+	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param distanceRS : distance de la RS = vitesse du bateau (1h)
+	 * @return cap de RS, c'est à dire la direction du vecteur RS 
+	 */
+	public static double capRS (double latVectAr, double longVectAr, double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
+		double cap = capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))));
+		return cap;
+	
+	}
+	
 	/**
 	 * 
 	 * @param latA : latitude en coordonnées gps du point de départ du bateau
@@ -410,17 +467,39 @@ public class Traitement {
 	 * @param tabVect : tabeau de type Vector des vecteurs courants sur la droite (AB)
 	 * @return : le tableau de type double,double de la liste des caps pour les 4 ports les plus proches du point de départ du bateau
 	 */
-	public static double[][] tabCapQuatrePorts (double latA, double longA, Point[] quatrePorts, Vector[] tabVect){
+	public static double[][] tabCapQuatrePorts (){
 		
-		double tabCapQuatrePorts[][] = new double[tabCapUnPointB(tabVect, latA, longA, quatrePorts[0].abcisse, quatrePorts[0].ordonnee).length][4];
+		double tabCapQuatrePorts[][] = new double[1000][4];
 		for(int i = 0; i < tabCapQuatrePorts[0].length; i++) {
 			for(int j = 0; j < tabCapQuatrePorts.length; j++) {
-				tabCapQuatrePorts[j][i] = tabCapUnPointB(tabVect, latA, longA, quatrePorts[i].abcisse, quatrePorts[i].ordonnee)[j]; 
+				tabCapQuatrePorts[j][i] = capRS(Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i])[j].arrivee.abcisse, Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i])[j].arrivee.ordonnee, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i])[j].arrivee.abcisse, Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i])[j].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i])[j].arrivee.abcisse, Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[i])[j].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).ordonnee, DialogInfo.info[2]);
 			}
 		}
 		return tabCapQuatrePorts;
 	}
 	
+	
+	/**
+	 * 
+	 * @param latA : latitude en coordonnées gps du point de départ du bateau
+	 * @param longA : longitude en coordonnées gps du point de départ du bateau	 * @param quatrePorts : tableau de type Point des quatre ports les plus proches du point de départ du bateau
+	 * @param tabVect : tabeau de type Vector des vecteurs courants sur la droite (AB)
+	 * 					affiche le tableau de type double,double de la liste des caps pour les 4 ports les plus proches du point de départ du bateau
+	 */
+	/*
+	public static void affichaeTabCapQuatrePorts (double latA, double longA, Point[] quatrePorts){
+		
+		double tabCapQuatrePorts[][] = new double[][];
+		for(int i = 0; i < tabCapQuatrePorts[0].length; i++) {
+			for(int j = 0; j < tabCapQuatrePorts.length; j++) {
+				tabCapQuatrePorts[j][i] = tabCapUnPointB(Courant.getCourant(coeffDir(latA, longA, quatrePorts[i].abcisse, quatrePorts[i].ordonnee), ordOrig(latA, longA, quatrePorts[i].abcisse, quatrePorts[i].ordonnee), new Point(latA,longA), new Point(quatrePorts[i].abcisse, quatrePorts[i].ordonnee)), latA, longA, quatrePorts[i].abcisse, quatrePorts[i].ordonnee)[j]; 
+				System.out.print(tabCapQuatrePorts[j][i]);
+			}
+		}
+		
+	}
+	*/
+	//System.out.print(afficheTapCapQuatrePorts(48.5877,-5.0431,quatrePortsLesPlusProches (48.5877, -5.0431, Point.getPort()),Courant.getCourant(coeffDir()))
 	
 	/**
 	 * 	
@@ -429,18 +508,18 @@ public class Traitement {
 	 * @param ports : tableau des points en coordonnées géographiques de tous les ports de Bretagne
 	 * @return : le tableau des quatre ports où leur distance, qui les séparent avec le point du départ du bateau, est la plus courte par rapport aux autres ports
 	 */
-	public static Point[] quatrePortsLesPlusProches (double latA, double longA, Point[]ports) {
+	public static Point[] quatrePortsLesPlusProches () {
 			
 			Point portsPlusProches[] = new Point[4];
 			 for(int j = 1 ; j <= 4 ; j++) {
-				 for (int i = 0; i < ports.length - j; i++) {
-						if(distanceDeAr(latA,longA,ports[i].abcisse, ports[i].ordonnee) < distanceDeAr(latA,longA,ports[i+1].abcisse, ports[i+1].ordonnee)) {
-							Point c = ports[i];
-							ports[i] = ports[i+1];
-							ports[i+1] = c;
+				 for (int i = 0; i < Point.getPort().length - j; i++) {
+						if(distanceDeAr(DialogInfo.info[1],DialogInfo.info[0],Point.getPort()[i].abcisse, Point.getPort()[i].ordonnee) < distanceDeAr(DialogInfo.info[1],DialogInfo.info[0],Point.getPort()[i+1].abcisse, Point.getPort()[i+1].ordonnee)) {
+							Point c = Point.getPort()[i];
+							Point.getPort()[i] = Point.getPort()[i+1];
+							Point.getPort()[i+1] = c;
 						}
 					}
-					portsPlusProches[j-1] = ports[ports.length - j];
+					portsPlusProches[j-1] = Point.getPort()[Point.getPort().length - j];
 			 }
 			return portsPlusProches;
 	}
@@ -478,14 +557,16 @@ public class Traitement {
 	 * @param longB : longitude en coordonnées gps du point d'arrivée du bateau
 	 * @return : le coefficient directeur de la droite (AB)
 	 */
-	public static double coeffDir (double latA, double longA, double latB, double longB) {
-		double latXA = Point.GpsToBreizh(680, 1280, new Point(latA, longA)).abcisse;
-		double longYA = Point.GpsToBreizh(680, 1280, new Point(latA, longA)).ordonnee;
-		double latXB = Point.GpsToBreizh(680, 1280, new Point(latB, longB)).abcisse;
-		double longYB = Point.GpsToBreizh(680, 1280, new Point(latB, longB)).ordonnee;
-		
-		double coeff = (longYB - longYA)/(latXB - latXA);
-		return coeff;
+	public static double[] coeffDir () {
+		double latXA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse;
+		double longYA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee;
+		double coeffDir [] = new double[4];
+		for(int i = 0; i < coeffDir.length; i++) {
+			double latXB = Point.GpsToBreizh(680, 1280, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee)).abcisse;
+			double longYB = Point.GpsToBreizh(680, 1280, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee)).ordonnee;
+			coeffDir[i] = (longYB - longYA)/(latXB - latXA);
+		}
+		return coeffDir;
 	}
 	
 	
@@ -497,12 +578,16 @@ public class Traitement {
 	 * @param longB : longitude en coordonnées gps du point d'arrivée du bateau
 	 * @return : l'ordonnée à l'origine de la droite (AB)
 	 */
-	public static double ordOrig (double latA, double longA, double latB, double longB) {
-		double latXA = Point.GpsToBreizh(680, 1280, new Point(latA, longA)).abcisse;
-		double longYA = Point.GpsToBreizh(680, 1280, new Point(latA, longA)).ordonnee;
+	public static double[] ordOrig () {
+		double latXA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse;
+		double longYA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee;
 		
-		double ordOrigine = longYA - coeffDir(latA, longA, latB, longB) * latXA; 
-		return ordOrigine;
+		double ordOrig[] = new double[4];
+		for(int i = 0; i < ordOrig.length; i++) {
+			ordOrig[i] = longYA - coeffDir()[i] * latXA ;
+		}
+		 
+		return ordOrig;
 	}
 	
 	
@@ -517,6 +602,7 @@ public class Traitement {
 	 * 			 une colonne correspondant au coeffcicient de la droite (AB),
 	 * 			et une colonne correspondant à l'ordonnée à l'origine de la droite (AB)
 	 */
+	/*
 	public static double[][] tabCoeffPlusOrdorig (Point[] quatrePorts, double latA, double longA) {
 		double [][] coeffPlusOrdorig = new double[4][2];
 		for(int i = 0; i < coeffPlusOrdorig.length; i++) {
@@ -527,7 +613,7 @@ public class Traitement {
 		}
 		return coeffPlusOrdorig;
 	}
-	
+	*/
 	
 	//pour Alexandre
 	/**
@@ -535,10 +621,10 @@ public class Traitement {
 	 * @param quatrePorts : quatre les ports plus de proches de A
 	 * @return : un tableau de type Point avec les points des ports en coordonnées Breizh (les points B)
 	 */
-	public static Point[] tabPointsB (Point [] quatrePorts) {
+	public static Point[] tabPointsB () {
 		Point [] pointsB = new Point[4];
 		for(int i = 0; i < pointsB.length; i++) {
-			pointsB[i] = Point.GpsToBreizh(680, 1280, new Point(quatrePorts[i].abcisse, quatrePorts[i].ordonnee));
+			pointsB[i] = Point.GpsToBreizh(680, 1280, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee));
 		}
 		return pointsB;
 	}
