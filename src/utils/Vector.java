@@ -6,12 +6,22 @@ public class Vector {
 	public Point arrivee;
 	public double vitesse;
 	
+	private double fHori;
+	private double fVert;
+	
 	public Vector(Point debut, Point arrivee, double vitesse) {
 		depart = debut;
 		this.vitesse = vitesse;
 		this.arrivee = arrivee;
 	}
 
+	public void setF(double forceVerticale, double forceHorizontale) {
+		fVert = forceVerticale;
+		fHori = forceHorizontale;
+	}
+	
+	
+	
 	/**
 	 * @param debut Le point GPS de départ
 	 * @param fVert La force, en m/s, vertical a applique 
@@ -36,6 +46,14 @@ public class Vector {
 	@Override
 	public String toString() {
 		return "Point depart : \n" + depart.toString() + "\nPoint arrivee : \n" + arrivee.toString() + "\nVitesse : " + vitesse + " m/s"; 
+	}
+
+	public double getfHori() {
+		return fHori;
+	}
+
+	public double getfVert() {
+		return fVert;
 	}
 	
 }

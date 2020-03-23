@@ -1,5 +1,7 @@
 package courant;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,9 +41,8 @@ public class Courant {
 		for(int i = 0;i<streams.length;i++) {
 			Point depart = new Point((latU[i]+latV[i])/2,(longU[i]+longV[i])/2);
 			streams[i] = new Vector(depart,Vector.getArriveeGps(depart, V[i], U[i]),Vector.getVitesse(V[i], U[i]));
+			streams[i].setF(V[i], U[i]);
 		}
-		ArrayList<Vector> inter = new ArrayList<Vector>();
-		int i = 0;
 		/*
 		PrintWriter writer = null;
 		try {
@@ -51,18 +52,18 @@ public class Courant {
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}*/
+		ArrayList<Vector> inter = new ArrayList<Vector>();
 		
-		for(Vector s:streams) {
+		for(int i = 0;i<streams.length;i++) {
 			//writer.println(s);
-			if(s.depart.abcisse>46.996142 && s.depart.abcisse<49.290168 && s.depart.ordonnee<-1.505404 && s.depart.ordonnee>-5.66923) {
+			if(streams[i].depart.abcisse>46.996142 && streams[i].depart.abcisse<49.290168 && streams[i].depart.ordonnee<-1.505404 && streams[i].depart.ordonnee>-5.66923) {
 				//System.out.println("Passé");
 				inter.add(streams[i]);
-				i++;
 			}
 		}
 		
 		Streams = inter.toArray(new Vector[inter.size()]);
-		
+
 		//System.out.println(Streams[0]);
 		//System.out.println(Streams[1]);
 		//System.out.println(Traitement.distanceDeAr(Streams[0].depart.abcisse, Streams[0].depart.ordonnee, Streams[1].depart.abcisse, Streams[1].depart.ordonnee));
@@ -100,8 +101,41 @@ public class Courant {
 		//transforme("Courant/LongitudeV.txt","Courant/CourantBon/LongitudeVModif.txt");
 	}
 	
-	public static Vector[] getCourant(double coeffDir,double OrdonOri) {	
-		return null;
+	public static Vector[] getCourant(double a,double b,Point depart,Point arrivee) {	
+		double distance = Math.sqrt(depart.abcisse*depart.abcisse + arrivee.ordonnee*arrivee.ordonnee);
+		double intervalle = distance / 1000.0;
+		ArrayList<Vector> res = new ArrayList<Vector>();
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+		for(int i = 0;i<=1000;i++) {
+			double ih = intervalle*i;
+			double X = depart.abcisse + ih;
+			double Y = a*X + b;
+			Point p = new Point(X,Y);
+			Point pGPS = Point.BreizhToGps(h, l, p);
+			
+			Courant stream = new Courant();
+			Vector inter = stream.Streams[0];
+			
+			for(Vector s:stream.Streams) {
+				double distancePS = Traitement.distanceDeAr(s.depart.abcisse, s.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
+				double distancePI = Traitement.distanceDeAr(inter.depart.abcisse, inter.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
+				if(distancePS<distancePI) {
+					inter = s;
+				}
+			}
+			Vector Vfinal = new Vector(pGPS,Vector.getArriveeGps(pGPS, inter.getfVert(), inter.getfHori()),inter.vitesse);
+			Vfinal.setF(inter.getfVert(), inter.getfHori());
+			res.add(Vfinal);
+		}
+		return res.toArray(new Vector[res.size()]);
 	}
 	
 	private static double[] getVraiValeurs(double[] tab,double offSet,double factor) {
