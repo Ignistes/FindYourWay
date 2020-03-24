@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.Charset;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -40,6 +42,9 @@ public class Dialog extends JDialog {
 	}
 
 	private void initComponent() {
+		
+		String d = "degré :";
+		String dFinal = new String(d.getBytes(),Charset.forName("UTF-8"));
 
 		// La latitude
 		JPanel panLat = new JPanel();
@@ -55,7 +60,7 @@ public class Dialog extends JDialog {
 		secondeLa.setPreferredSize(new Dimension(30, 10));
 		copoLa.setPreferredSize(new Dimension(30, 10));
 		panLat.setBorder(BorderFactory.createTitledBorder("Latitude"));
-		degreLaLabel = new JLabel("degré :");
+		degreLaLabel = new JLabel(dFinal);
 		panLat.add(degreLaLabel);
 		panLat.add(degreLa);
 		minuteLaLabel = new JLabel("minute :");
@@ -82,7 +87,7 @@ public class Dialog extends JDialog {
 		secondeLo.setPreferredSize(new Dimension(30, 15));
 		copoLo.setPreferredSize(new Dimension(30, 15));
 		panLong.setBorder(BorderFactory.createTitledBorder("Longitude"));
-		degreLoLabel = new JLabel("degré :");
+		degreLoLabel = new JLabel(dFinal);
 		panLong.add(degreLoLabel);
 		panLong.add(degreLo);
 		minuteLoLabel = new JLabel("minute :");
@@ -113,7 +118,7 @@ public class Dialog extends JDialog {
 		taille = new JTextField();
 		taille.setPreferredSize(new Dimension(70, 25));
 		panTaille.setBorder(BorderFactory.createTitledBorder("Taille"));
-		tailleLabel = new JLabel("Saisir la taille de votre bâteau :");
+		tailleLabel = new JLabel("Saisir la taille de votre bateau :");
 		panTaille.add(tailleLabel);
 		panTaille.add(taille);
 

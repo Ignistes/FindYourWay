@@ -1,5 +1,7 @@
 package gui;
 
+import java.nio.charset.Charset;
+
 import traitement.Traitement;
 
 public class DialogInfo {
@@ -55,7 +57,7 @@ public class DialogInfo {
 				infos[0] = longi;
 				infos[1] = lat;
 				infos[2] = vite;
-				infos[3] = longi;
+				infos[3] = tail;
 			} catch (Exception e){
 				return null;
 			}
@@ -218,11 +220,15 @@ public class DialogInfo {
 
 	public String toString() {
 		String str;
+		
+		String m = " mètres";
+		String mFinal = new String(m.getBytes(),Charset.forName("UTF-8"));
+		
 		if (infosOK()) {
-			str = "Description du bâteau" + "\n";
+			str = "Description du bateau" + "\n";
 			str += "Longitude : " + longitude + "\n";
 			str += "Latitude : " + latitude + "\n";
-			str += "Taille : " + this.taille + " mètres" + "\n";
+			str += "Taille : " + this.taille + mFinal + "\n";
 			str += "Vitesse : " + this.vitesse + " noeuds" + "\n";
 		} else {
 			str = "Nous ne pouvons pas traiter ces informations !" + "\n";

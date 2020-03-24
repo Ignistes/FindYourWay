@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,11 +22,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class FenetreBis {
 
 	JFrame cadre;
 	JLabel cap = new JLabel();
+	JScrollPane scroll;
 	
 
 	public static Dialog dialog;
@@ -45,20 +48,13 @@ public class FenetreBis {
 		cadre.setContentPane(panneau);
 	}
 
-	public void reset(JPanel panneau) {
-		cadre.revalidate();
-		cadre.add(new Panneau(), new FenetreBis(panneau));
-	}
-
-	/*
-	public void gestionBouton(JButton retour, JButton info, JButton aideInfo, JFrame cadre, int h, int l) {
+	public void gestionBouton(JButton info, JButton aideInfo, JFrame cadre, int h, int l) {
 		cadre.getContentPane().add(info);
 		cadre.getContentPane().add(aideInfo);
 		aideInfo.setBounds((l / 2) - 150, h / 3, 300, 30);
 		info.setBounds((l / 2) - 100, h / 2, 200, 30);
 	}
-	*/
-	
+
 	public String remplirLabCap(double [] cap) {
 		String s = "<html>";
 		for (int i = 0; i<cap.length-1; i++) {
@@ -80,12 +76,25 @@ public class FenetreBis {
 		JPanel acceuil = new Panneau();
 		JPanel bretagne = new PanneauBretagne();
 		
+		String c = "Caps à suivre";
+		String cFinal = new String(c.getBytes(),Charset.forName("UTF-8"));
+		String cd = "Coordonnées décimales"; 
+		String cdFinal = new String(cd.getBytes(),Charset.forName("UTF-8"));
+		String cg = "Coordonnées deg°min'sec''ptC"; 
+		String cgFinal = new String(cg.getBytes(),Charset.forName("UTF-8"));
+		String choice = "Choisissez votre choix de coordonnées"; 
+		String choiceFinal = new String(choice.getBytes(),Charset.forName("UTF-8"));
+		
+		scroll = new JScrollPane();
+		scroll.setBounds(5, 112, 180, 300);
+		
 		
 		//Le panel qui affiche les caps
 		JPanel pan = new JPanel();
 		//pan.setLayout(new FlowLayout());
 		pan.setBorder(BorderFactory.createLineBorder(Color.black));
-		pan.setBorder(BorderFactory.createTitledBorder("Caps à suivre"));
+		pan.setBorder(BorderFactory.createTitledBorder(cFinal));
+		pan.add(scroll);
 		
 		
 		//Le panel qui donne le choix a l'utilisateur pour rentrer ses coordonnes
@@ -98,9 +107,13 @@ public class FenetreBis {
 		JButton aideInfo = new JButton("Comment entrer ses informations ?");
 		JButton retour = new JButton("Retour");
 		
+		aideInfo.setBounds((l / 2) - 150, h / 3, 300, 30);
+		info.setBounds((l / 2) - 100, h / 2, 200, 30);
+		
+		
 		//Les boutons de panel choix
-		JButton dec = new JButton("Coordonnées décimales");
-		JButton geo = new JButton("Coordonnées deg°min'sec''ptC");
+		JButton dec = new JButton(cdFinal);
+		JButton geo = new JButton(cgFinal);
 
 		cadre = new javax.swing.JFrame("FindYourWave");
 
@@ -125,8 +138,8 @@ public class FenetreBis {
 		cadre.getContentPane().add(info);
 		cadre.getContentPane().add(aideInfo);
 
-		aideInfo.setBounds((l / 2) - 150, h / 3, 300, 30);
-		info.setBounds((l / 2) - 100, h / 2, 200, 30);
+		//aideInfo.setBounds((l / 2) - 150, h / 3, 300, 30);
+		//info.setBounds((l / 2) - 100, h / 2, 200, 30);
 		/*
 		 * gbc.gridx = 0; gbc.gridy = 0; gbc.fill = GridBagConstraints.VERTICAL;
 		 */
@@ -154,9 +167,10 @@ public class FenetreBis {
 						System.out.println(e.toString());
 					}
 				}
+				String text = new String(chaine.getBytes(),Charset.forName("UTF-8"));
 				// Boîte du message d'information
 				JOptionPane jop1 = new JOptionPane();
-				jop1.showMessageDialog(null, chaine, "Aide aux infos", JOptionPane.INFORMATION_MESSAGE);
+				jop1.showMessageDialog(null, text, "Aide aux infos", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
@@ -167,7 +181,7 @@ public class FenetreBis {
 				aideInfo.setVisible(false);
 				info.setVisible(false);
 				choix.setBounds((l/2) - 300, h/4 , 600, 200);
-				choix.setBorder(BorderFactory.createTitledBorder("Choisissez votre choix de coordonnées"));
+				choix.setBorder(BorderFactory.createTitledBorder(choiceFinal));
 				choix.add(dec);
 				choix.add(geo);
 				choix.add(retour);
@@ -193,20 +207,17 @@ public class FenetreBis {
 					cadre.getContentPane().add(pan);
 					retour.setBounds(10, 10, 80, 23);
 					
-					// Positionner le Panel, ou autre objet qui servira à donner les caps, en
-					// fonction de la position du bateau
+					//On remplira le label par le tableau retournant les caps à suivre
+					//cap.setText(remplirLabCap(Traitement.tabCapLePortLePlusRapide()));
 					cap.setText("<html>Ligne1<br>Ligne2<br>Ligne3<br>Ligne4<br>Ligne5<br>Ligne6<br>Ligne7<br>Ligne7</html>");
 					pan.add(cap);
-					pan.setBounds(l - 250, h - 350, 200, 400);
-					//pan.revalidate();
-				    //pan.repaint();
-	
-					//On remplira le label par le tableau retournant les caps à suivre
-					//avec String s = remplirLabCap(Traitement.nomDeLaFonction);
-					//cap.setLocation((int)pan.getLocation().getX()-10, (int)pan.getLocation().getY()-10);
-					cap.setBounds(5,5,100,300);
-					System.out.println(cap.getBorder());
 					
+					// Positionner le Panel, ou autre objet qui servira à donner les caps, en
+					// fonction de la position du bateau
+					pan.setBounds(l - 250, h - 350, 200, 400);
+	
+					//cap.setLocation((int)pan.getLocation().getX()-10, (int)pan.getLocation().getY()-10);
+					cap.setBounds(5,5,100,300);		
 				}
 			}
 		});
@@ -223,30 +234,28 @@ public class FenetreBis {
 					cadre.getContentPane().add(pan);
 					retour.setBounds(10, 10, 80, 23);
 					
-					// Positionner le Panel, ou autre objet qui servira à donner les caps, en
-					// fonction de la position du bateau
+					//On remplira le label par le tableau retournant les caps à suivre
+					//cap.setText(remplirLabCap(Traitement.tabCapLePortLePlusRapide()));
 					cap.setText("<html>Ligne1<br>Ligne2<br>Ligne3<br>Ligne4<br>Ligne5<br>Ligne6<br>Ligne7<br>Ligne7</html>");
 					pan.add(cap);
+					
+					// Positionner le Panel, ou autre objet qui servira à donner les caps, en
+					// fonction de la position du bateau
 					pan.setBounds(l - 250, h - 350, 200, 400);
-					//pan.revalidate();
-				    //pan.repaint();
 	
-					//On remplira le label par le tableau retournant les caps à suivre
-					//avec String s = remplirLabCap(Traitement.nomDeLaFonction);
 					//cap.setLocation((int)pan.getLocation().getX()-10, (int)pan.getLocation().getY()-10);
-					cap.setBounds(5,5,100,300);
-					System.out.println(cap.getBorder());
-					
-					
+					cap.setBounds(5,5,100,300);					
 				}
 			}
 		});
 
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cadre.setContentPane(acceuil);
 				aideInfo.setBounds((l / 2) - 150, h / 3, 300, 30);
 				info.setBounds((l / 2) - 100, h / 2, 200, 30);
+				cadre.setContentPane(panneau);
+				cadre.setLocationRelativeTo(null);
+				cadre.setLayout(null);
 				cadre.getContentPane().add(info);
 				cadre.getContentPane().add(aideInfo);
 				choix.setVisible(false);

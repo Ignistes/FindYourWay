@@ -81,7 +81,7 @@ public class DialogDec extends JDialog {
 		taille = new JTextField();
 		taille.setPreferredSize(new Dimension(70, 25));
 		panTaille.setBorder(BorderFactory.createTitledBorder("Taille"));
-		tailleLabel = new JLabel("Saisir la taille de votre bâteau :");
+		tailleLabel = new JLabel("Saisir la taille de votre bateau :");
 		panTaille.add(tailleLabel);
 		panTaille.add(taille);
 
