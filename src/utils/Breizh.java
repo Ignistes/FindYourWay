@@ -1,11 +1,16 @@
 package utils;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 //import utils.Point;
+import java.util.ArrayList;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 public class Breizh {
 	
@@ -18,14 +23,58 @@ public class Breizh {
 	 * Creer un objet Bretagne adapte a la taille de la fenetre
 	 */
 	public Breizh(double hauteurFenetre, double largeurFenetre) {
-		int[] pointsInterX = Xreturn(hauteurFenetre);
-		int[] pointsInterY = Yreturn(largeurFenetre);
-		for(int i = 0;i<pointsInterY.length;i++) {
-			pointsInterX[i] = (int)(hauteurFenetre/2 + (pointsInterX[i]-(hauteurFenetre/2))*Math.cos(Math.PI) - (pointsInterY[i]-(largeurFenetre/2))*Math.sin(Math.PI));
-			pointsInterY[i] = (int)(largeurFenetre/2 + (pointsInterX[i]-(hauteurFenetre/2))*Math.sin(Math.PI) + (pointsInterY[i]-(largeurFenetre/2))*Math.cos(Math.PI));
-		}
-		pointsX = pointsInterY;
-		pointsY = pointsInterX;
+		//int[] pointsInterX = Xreturn(hauteurFenetre);
+		//int[] pointsInterY = Yreturn(largeurFenetre);
+		
+		Path chemin = Paths.get("Points Bretagne.txt");
+		ArrayList<Double> txt =  new ArrayList<Double>();
+	    try (BufferedReader reader = Files.newBufferedReader(chemin)){
+	    	String line = null;
+	    	while((line = reader.readLine())!=null) {
+	    		String Line = line.replace(',', ' ');
+	    		String[] Sentence = Line.split(" ");
+	    		//System.out.println(Sentence.length);
+	    		for(String m:Sentence) {
+	    			if(!m.equals("")) {
+	    				txt.add(Double.valueOf(m));
+	    				//System.out.println(m);
+	    			}
+	    		}
+	    		
+	    	}
+	    }catch (IOException e) {
+	    	System.out.println(e);
+	    }
+	    
+	    GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+	    
+        ArrayList<Integer>pointsXInter = new ArrayList<Integer>();
+        ArrayList<Integer>pointsYInter = new ArrayList<Integer>();
+        
+	    Double [] valFinal = txt.toArray(new Double[txt.size()]);
+	    for(int i=0;i<txt.size()-1;i+=2) {
+	    	Point p = new Point(valFinal[i+1],valFinal[i]);
+	    	System.out.println(p);
+	    	p = Point.GpsToBreizh(h, l, p);
+	    	System.out.println(p);
+	    	pointsXInter.add((int)p.abcisse);
+	    	pointsYInter.add((int)p.ordonnee);
+	    }
+	    
+	    pointsX = new int[pointsXInter.size()];
+	    pointsY = new int[pointsYInter.size()];
+	    
+	    for(int i = 0;i<pointsXInter.size();i++) {
+	    	pointsX[i] = pointsXInter.get(i);
+	    	pointsY[i] = pointsYInter.get(i);
+	    }
+	    
 	}
 	
 	

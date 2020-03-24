@@ -32,7 +32,7 @@ public class PanneauBretagne extends JPanel {
 
 		Breizh bretagne = new Breizh(h, l);
 
-		g.drawPolyline(bretagne.getPointsX(), bretagne.getPointsY(), bretagne.getPointsX().length);
+		g.drawPolyline(bretagne.getPointsY(), bretagne.getPointsX(), bretagne.getPointsX().length);
 
 		if (FenetreBis.whatCo() == true) {
 			ship = Point.GpsToBreizh(h, l, new Point(FenetreBis.dialog.Info.getInfos()[1], FenetreBis.dialog.Info.getInfos()[0]));

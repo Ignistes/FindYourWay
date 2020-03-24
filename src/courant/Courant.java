@@ -20,7 +20,7 @@ import utils.Vector;
 
 public class Courant {
 
-	public Vector[] Streams;
+	public static Vector[] Streams;
 	
 	public Courant() {
 		double[] U 		= getValeur("Courant/CourantBon/UModif.txt");
