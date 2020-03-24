@@ -120,11 +120,12 @@ public class Courant {
 			double Y = a*X + b;
 			Point p = new Point(X,Y);
 			Point pGPS = Point.BreizhToGps(h, l, p);
+			if(Streams==null) {
+				new Courant();
+			}
+			Vector inter = Streams[0];
 			
-			Courant stream = new Courant();
-			Vector inter = stream.Streams[0];
-			
-			for(Vector s:stream.Streams) {
+			for(Vector s:Streams) {
 				double distancePS = Traitement.distanceDeAr(s.depart.abcisse, s.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
 				double distancePI = Traitement.distanceDeAr(inter.depart.abcisse, inter.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
 				if(distancePS<distancePI) {
@@ -148,7 +149,7 @@ public class Courant {
 	}
 	
 	private static double[] getValeur(String chemin) {
-		System.out.println(chemin);
+		//System.out.println(chemin);
 		ArrayList<Double> res = new ArrayList<Double>();
 		Path cheminX = Paths.get(chemin);
 		try (BufferedReader reader = Files.newBufferedReader(cheminX)){
