@@ -60,9 +60,9 @@ public class Breizh {
 	    Double [] valFinal = txt.toArray(new Double[txt.size()]);
 	    for(int i=0;i<txt.size()-1;i+=2) {
 	    	Point p = new Point(valFinal[i+1],valFinal[i]);
-	    	System.out.println(p);
+	    	//System.out.println(p);
 	    	p = Point.GpsToBreizh(h, l, p);
-	    	System.out.println(p);
+	    	//System.out.println(p);
 	    	pointsXInter.add((int)p.abcisse);
 	    	pointsYInter.add((int)p.ordonnee);
 	    }
