@@ -58,18 +58,18 @@ public class Traitement {
 		//affichageQuatrePortsLesPlusProches(47.495571, -3.505096, Point.getPort());
 		//affQuatrePortsLesPlusProches();
 		//dkfjjf();
-		//affTab();
+		affTab();
 		//System.out.println(capDeg(48.294054, -5.623783,quatrePortsLesPlusProches()[3].abcisse, quatrePortsLesPlusProches()[3].ordonnee));
 		
 		
-		double latVectAr = 48.30243245;
-		double longVectAr = -6.46377473;
+		double latVectAr = 48.302156040696076;
+		double longVectAr = -5.625759107486851;
 		double latXVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).abcisse;
 		double longYVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).ordonnee;
-		double latXA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).abcisse;
-		double longYA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).ordonnee;
-		double latXB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[0]).abcisse;
-		double longYB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[0]).ordonnee;
+		double latXA = Point.GpsToBreizh(h,l, new Point(48.294054,-5.623783000000003)).abcisse;
+		double longYA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783000000003)).ordonnee;
+		double latXB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[1]).abcisse;
+		double longYB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[1]).ordonnee;
 		double distanceRS = 6*7.33;
 		
 		
@@ -427,13 +427,15 @@ public class Traitement {
         int h = (int) maximumWindowBounds.getHeight();
         int l = (int) maximumWindowBounds.getWidth();
 		
-        
+        double[] coeffD = coeffDir();
+        double[] ordOr = ordOrig();
+        Point[] quatreP = quatrePortsLesPlusProches();
 		
 		double tabCapQuatrePorts[][] = new double[500][4];
 		for(int i = 0; i < tabCapQuatrePorts[0].length; i++) {
-			Vector[] a = Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i]);
+			Vector[] a = Courant.getCourant(coeffD[i], ordOr[i], new Point(48.294054, -5.623783), quatreP[i]);
 			for(int j = 0; j < tabCapQuatrePorts.length; j++) {
-				tabCapQuatrePorts[j][i] = capRS(a[j].arrivee.abcisse, a[j].arrivee.ordonnee, Point.GpsToBreizh(h, l, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(h, l, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(h, l, new Point(48.294054, -5.623783)).abcisse, Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).ordonnee, Point.GpsToBreizh(h,l, quatrePortsLesPlusProches()[i]).abcisse, Point.GpsToBreizh(h,l, quatrePortsLesPlusProches()[i]).ordonnee, 6*7.33);
+				tabCapQuatrePorts[j][i] = capRS(a[j].arrivee.abcisse, a[j].arrivee.ordonnee, Point.GpsToBreizh(h, l, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(h, l, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(h, l, new Point(48.294054, -5.623783)).abcisse, Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).ordonnee, Point.GpsToBreizh(h,l, quatreP[i]).abcisse, Point.GpsToBreizh(h,l, quatreP[i]).ordonnee, 6*7.33);
 			}
 		}
 		return tabCapQuatrePorts;
@@ -447,8 +449,9 @@ public class Traitement {
 		double essai [][] = tabCapQuatrePorts();
 		for(int i = 0; i < essai[0].length; i++) {
 			for(int j = 0; j < essai.length; j++) {
-				System.out.print(essai[j][i]);
+				System.out.print(essai[j][i] + " ");
 			}
+			System.out.println();
 		}
 	}
 	

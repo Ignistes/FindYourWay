@@ -21,7 +21,6 @@ public class Vector {
 	}
 	
 	
-	
 	/**
 	 * @param debut Le point GPS de départ
 	 * @param fVert La force, en m/s, vertical a applique 

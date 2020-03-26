@@ -128,11 +128,14 @@ public class Courant {
 			if(i%100==0) {
 				System.out.println("getCourant i : " + i);
 			}
+			Point departBreizh = Point.GpsToBreizh(h, l, depart);
 			double ih = intervalle*i;
-			double X = depart.abcisse + ih;
+			double X = departBreizh.abcisse + ih;
 			double Y = a*X + b;
 			Point p = new Point(X,Y);
+			if(i==0)System.out.println(p);
 			Point pGPS = Point.BreizhToGps(h, l, p);
+			if(i==0)System.out.println(pGPS);
 			Vector inter = carre[0];
 			int j =0;
 			//double distancePI = Traitement.distanceDeAr(inter.depart.abcisse, inter.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
@@ -153,6 +156,8 @@ public class Courant {
 			Vector Vfinal = new Vector(pGPS,Vector.getArriveeGps(pGPS, inter.getfVert(), inter.getfHori()),inter.vitesse);
 			Vfinal.setF(inter.getfVert(), inter.getfHori());
 			res.add(Vfinal);
+			if(i==0)
+			System.out.println(Vfinal);
 		}
 		return res.toArray(new Vector[res.size()]);
 	}

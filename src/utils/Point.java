@@ -27,11 +27,11 @@ public class Point {
 	 * @return Le point GPS convertit dans la carte de la Bretagne
 	 */
 	public static Point GpsToBreizh(double hauteur, double largeur, Point point) {
-		int X =(int)(hauteur * ( point.abcisse 	- 46.996142	) / 2.294026);
-		int Y =(int)(largeur * ( -point.ordonnee 	- 1.505404	) / 4.163826);
+		double X = hauteur * ( point.abcisse 	- 46.996142	) / 2.294026;
+		double Y = largeur * ( -point.ordonnee 	- 1.505404	) / 4.163826;
 		return new Point(
-				(int)(hauteur/2 + (X-(hauteur/2))*Math.cos(Math.PI) - (Y-(largeur/2))*Math.sin(Math.PI)),
-				(int)(largeur/2 + (X-(hauteur/2))*Math.sin(Math.PI) + (Y-(largeur/2))*Math.cos(Math.PI)));
+				hauteur/2 + (X-(hauteur/2))*Math.cos(Math.PI) - (Y-(largeur/2))*Math.sin(Math.PI),
+				largeur/2 + (X-(hauteur/2))*Math.sin(Math.PI) + (Y-(largeur/2))*Math.cos(Math.PI));
 	}
 
 	/**
@@ -41,8 +41,8 @@ public class Point {
 	 * @return Le point dans le format GPS
 	 */
 	public static Point BreizhToGps(double hauteur, double largeur, Point point) {
-		int X = (int)point.abcisse;
-		int Y = (int)point.ordonnee;
+		double X = point.abcisse;
+		double Y = point.ordonnee;
 		double lat = (hauteur/2 + (X-(hauteur/2))*Math.cos(Math.PI) - (Y-(largeur/2))*Math.sin(Math.PI));
 		double lon = (largeur/2 + (X-(hauteur/2))*Math.sin(Math.PI) + (Y-(largeur/2))*Math.cos(Math.PI));
 		lat = ((2.294026*lat)/hauteur) + 46.996142;
