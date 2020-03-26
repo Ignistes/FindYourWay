@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import traitement.Traitement;
 import utils.Point;
@@ -62,6 +64,9 @@ public class Courant {
 			}
 		}
 		
+		
+		
+		
 		Streams = inter.toArray(new Vector[inter.size()]);
 
 		//System.out.println(Streams[0]);
@@ -101,9 +106,12 @@ public class Courant {
 		//transforme("Courant/LongitudeV.txt","Courant/CourantBon/LongitudeVModif.txt");
 	}
 	
-	public static Vector[] getCourant(double a,double b,Point depart,Point arrivee) {	
+	public static Vector[] getCourant(double a,double b,Point depart,Point arrivee) {
+		
+		Vector[] carre = petitCourant(depart,arrivee);
+		System.out.println(carre.length);
 		double distance = Math.sqrt(depart.abcisse*depart.abcisse + arrivee.ordonnee*arrivee.ordonnee);
-		double intervalle = distance / 1000.0;
+		double intervalle = distance / 500.0;
 		ArrayList<Vector> res = new ArrayList<Vector>();
 		
 		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -114,23 +122,33 @@ public class Courant {
         int h = (int) maximumWindowBounds.getHeight();
         int l = (int) maximumWindowBounds.getWidth();
 		
-		for(int i = 0;i<=1000;i++) {
+        
+        
+		for(int i = 0;i<=500;i++) {
+			if(i%100==0) {
+				System.out.println("getCourant i : " + i);
+			}
 			double ih = intervalle*i;
 			double X = depart.abcisse + ih;
 			double Y = a*X + b;
 			Point p = new Point(X,Y);
 			Point pGPS = Point.BreizhToGps(h, l, p);
-			if(Streams==null) {
-				new Courant();
-			}
-			Vector inter = Streams[0];
-			
-			for(Vector s:Streams) {
-				double distancePS = Traitement.distanceDeAr(s.depart.abcisse, s.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
-				double distancePI = Traitement.distanceDeAr(inter.depart.abcisse, inter.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
+			Vector inter = carre[0];
+			int j =0;
+			//double distancePI = Traitement.distanceDeAr(inter.depart.abcisse, inter.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
+			Point interdepart = Point.GpsToBreizh(h, l, inter.depart);
+			double distancePI = Math.sqrt(((interdepart.abcisse-p.abcisse)*(interdepart.abcisse-p.abcisse)) + ((interdepart.ordonnee-p.ordonnee)*(interdepart.ordonnee-p.ordonnee)));
+			for(Vector s:carre) {
+				Point interS = Point.GpsToBreizh(h, l, s.depart);
+				double distancePS = Math.sqrt(((interS.abcisse-p.abcisse)*(interS.abcisse-p.abcisse)) + ((interS.ordonnee-p.ordonnee)*(interS.ordonnee-p.ordonnee)));
 				if(distancePS<distancePI) {
 					inter = s;
+					interdepart = Point.GpsToBreizh(h, l, inter.depart);
+					distancePI = Math.sqrt(((interdepart.abcisse-p.abcisse)*(interdepart.abcisse-p.abcisse)) + ((interdepart.ordonnee-p.ordonnee)*(interdepart.ordonnee-p.ordonnee)));
 				}
+				//if(j==100000)
+				//System.out.println("for : " + j);
+				j++;
 			}
 			Vector Vfinal = new Vector(pGPS,Vector.getArriveeGps(pGPS, inter.getfVert(), inter.getfHori()),inter.vitesse);
 			Vfinal.setF(inter.getfVert(), inter.getfHori());
@@ -146,6 +164,25 @@ public class Courant {
 			else tab[i] = 0;
 		}
 		return tab;
+	}
+	
+	private static Vector[] petitCourant(Point depart, Point arrivee) {
+		ArrayList<Vector> inter = new ArrayList<Vector>();
+		if(Streams==null)new Courant();
+		for(Vector s:Streams) {
+			double LatS = s.depart.abcisse;
+			double LongS = s.depart.ordonnee;
+			
+			double LatD = depart.abcisse;
+			double LongD = depart.ordonnee;
+			
+			double LatA = arrivee.abcisse;
+			double LongA = arrivee.ordonnee;
+			if(Math.min(LatD, LatA)<=LatS && LatS<=Math.max(LatD, LatA)  && Math.min(LongD, LongA)<=LongS && LongS<=Math.max(LongD, LongA)) {
+				inter.add(s);
+			}
+		}
+		return inter.toArray(new Vector[inter.size()]);
 	}
 	
 	private static double[] getValeur(String chemin) {
@@ -383,4 +420,15 @@ Path cheminX = Paths.get("Courant/CourantBon/UModif.txt");
 	}
 	
 		 
+}
+class MyComp implements Comparator<Vector>{
+	 
+    @Override
+    public int compare(Vector v1, Vector v2) {
+    	double res = Math.random();
+    	if(res<=0.5)return 1;
+        if(res>0.5) return -1;
+        return 0;
+    }
+     
 }
