@@ -3,6 +3,9 @@ package traitement;
 import utils.Vector;
 
 import utils.Point;
+
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import courant.Courant;
@@ -20,11 +23,21 @@ public class Traitement {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+		
 		/*System.out.println(capDeg(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" degrés");	//test de la fonction capDeg qui calcule le cap entre deux points	 
 		System.out.println(distanceDeAr(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" miles nautiques");	//test de la fonction distanceDeAr qui calcule la distance entre deux points	
 		System.out.println(coordGeoDecLat(48, 6, 40.819, "N"));
 		*/
-		//System.out.println(capRS(47.39, (-2.85), Point.GpsToBreizh(680, 1280, new Point(47.39,(-2.85))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.39,(-2.85))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.40,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.4,-2.62)).ordonnee, 6)) ;
+		//System.out.println(capRS(47.39, (-2.85), Point.GpsToBreizh(680, 1280, new Point(47.39,(-2.85))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.39,(-2.85))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.40,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.4,-2.62)).ordonnee, 6*7.33)) ;
 		//System.out.println(Point.BreizhToGps(680, 1280, new Point( latXInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0), longYInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0, latXInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0)))).abcisse) ;
 		//System.out.print(latXInterRSetRF(Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.38,(-2.86))).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.42,-2.83)).ordonnee, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).abcisse, Point.GpsToBreizh(680, 1280, new Point(47.41,-2.62)).ordonnee, 6.0));
 		//System.out.println(latXInterRSetRF(2, 3, 3, 8, 5, 12, 2));
@@ -45,7 +58,25 @@ public class Traitement {
 		//affichageQuatrePortsLesPlusProches(47.495571, -3.505096, Point.getPort());
 		//affQuatrePortsLesPlusProches();
 		//dkfjjf();
-		affTab();
+		//affTab();
+		//System.out.println(capDeg(48.294054, -5.623783,quatrePortsLesPlusProches()[3].abcisse, quatrePortsLesPlusProches()[3].ordonnee));
+		
+		
+		double latVectAr = 48.30243245;
+		double longVectAr = -6.46377473;
+		double latXVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).abcisse;
+		double longYVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).ordonnee;
+		double latXA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).abcisse;
+		double longYA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).ordonnee;
+		double latXB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[0]).abcisse;
+		double longYB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[0]).ordonnee;
+		double distanceRS = 6*7.33;
+		
+		
+		System.out.println(capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS)))));
+
+	
+	
 	}
 
 	public static void dkfjjf () {
@@ -332,7 +363,16 @@ public class Traitement {
 	 * @return latitude, en coordonnées géographiques, du point d'intersection entre la RS et la RF
 	 */
 	public static double latInterRSetRF (double latX, double longY) {
-		return Point.BreizhToGps(680, 1280, new Point(latX, longY)).abcisse;
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+		return Point.BreizhToGps(h,l, new Point(latX, longY)).abcisse;
 	}
 	
 	
@@ -343,7 +383,16 @@ public class Traitement {
 	 * @return longitude, en coordonnées géographiques, du point d'intersection entre la RS et la RF
 	 */
 	public static double longInterRSetRF (double latX, double longY) {
-		return Point.BreizhToGps(680, 1280, new Point(latX, longY)).ordonnee;
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+		return Point.BreizhToGps(h,l, new Point(latX, longY)).ordonnee;
 	}
 	
 	
@@ -370,11 +419,21 @@ public class Traitement {
 	 */
 	public static double[][] tabCapQuatrePorts (){
 		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+        
+		
 		double tabCapQuatrePorts[][] = new double[500][4];
 		for(int i = 0; i < tabCapQuatrePorts[0].length; i++) {
 			Vector[] a = Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i]);
 			for(int j = 0; j < tabCapQuatrePorts.length; j++) {
-				tabCapQuatrePorts[j][i] = capRS(a[j].arrivee.abcisse, a[j].arrivee.ordonnee, Point.GpsToBreizh(680, 1280, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).abcisse, Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).ordonnee, 6*7.33);
+				tabCapQuatrePorts[j][i] = capRS(a[j].arrivee.abcisse, a[j].arrivee.ordonnee, Point.GpsToBreizh(h, l, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(h, l, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(h, l, new Point(48.294054, -5.623783)).abcisse, Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).ordonnee, Point.GpsToBreizh(h,l, quatrePortsLesPlusProches()[i]).abcisse, Point.GpsToBreizh(h,l, quatrePortsLesPlusProches()[i]).ordonnee, 6*7.33);
 			}
 		}
 		return tabCapQuatrePorts;
@@ -448,6 +507,15 @@ public class Traitement {
 	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les différents caps à prendre pour le port d'indice zéro
 	 */
 	public static double[] essaiZero () {
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
 		int nbCap = 0;
 		Vector [] a = Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0]);
 		for(int k = 0; k < a.length; k++) {
@@ -512,6 +580,9 @@ public class Traitement {
 	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les différents caps à prendre pour le port d'indice deux
 	 */
 	public static double[] essaiDeux () {
+		
+		
+		
 		int nbCap = 0;
 		Vector[]a = Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2]);
 		for(int k = 0; k < a.length; k++) {
@@ -657,12 +728,21 @@ public class Traitement {
 	 * @return : le coefficient directeur de la droite (AB)
 	 */
 	public static double[] coeffDir () {
-		double latXA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).abcisse;
-		double longYA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).ordonnee;
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+		double latXA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).abcisse;
+		double longYA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).ordonnee;
 		double coeffDir [] = new double[4];
 		for(int i = 0; i < coeffDir.length; i++) {
-			double latXB = Point.GpsToBreizh(680, 1280, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee)).abcisse;
-			double longYB = Point.GpsToBreizh(680, 1280, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee)).ordonnee;
+			double latXB = Point.GpsToBreizh(h,l, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee)).abcisse;
+			double longYB = Point.GpsToBreizh(h,l, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee)).ordonnee;
 			coeffDir[i] = (longYB - longYA)/(latXB - latXA);
 		}
 		return coeffDir;
@@ -673,8 +753,17 @@ public class Traitement {
 	 * @return : l'ordonnée à l'origine de la droite (AB)
 	 */
 	public static double[] ordOrig () {
-		double latXA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).abcisse;
-		double longYA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).ordonnee;
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+		double latXA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).abcisse;
+		double longYA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783)).ordonnee;
 		
 		double ordOrig[] = new double[4];
 		for(int i = 0; i < ordOrig.length; i++) {
@@ -690,9 +779,18 @@ public class Traitement {
 	 * @return : un tableau de type Point avec les points des ports en coordonnées Breizh (les points B)
 	 */
 	public static Point[] tabPointsB () {
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
 		Point [] pointsB = new Point[4];
 		for(int i = 0; i < pointsB.length; i++) {
-			pointsB[i] = Point.GpsToBreizh(680, 1280, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee));
+			pointsB[i] = Point.GpsToBreizh(h,l, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee));
 		}
 		return pointsB;
 	}
