@@ -45,7 +45,7 @@ public class Traitement {
 		//affichageQuatrePortsLesPlusProches(47.495571, -3.505096, Point.getPort());
 		//affQuatrePortsLesPlusProches();
 		//dkfjjf();
-		//affTab();
+		affTab();
 	}
 
 	public static void dkfjjf () {
@@ -370,13 +370,27 @@ public class Traitement {
 	 */
 	public static double[][] tabCapQuatrePorts (){
 		
-		double tabCapQuatrePorts[][] = new double[1000][4];
+		double tabCapQuatrePorts[][] = new double[500][4];
 		for(int i = 0; i < tabCapQuatrePorts[0].length; i++) {
+			Vector[] a = Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i]);
 			for(int j = 0; j < tabCapQuatrePorts.length; j++) {
-				tabCapQuatrePorts[j][i] = capRS(Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i])[j].arrivee.abcisse, Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i])[j].arrivee.ordonnee, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i])[j].arrivee.abcisse, Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i])[j].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i])[j].arrivee.abcisse, Courant.getCourant(coeffDir()[i], ordOrig()[i], new Point(48.294054, -5.623783), quatrePortsLesPlusProches()[i])[j].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).abcisse, Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).ordonnee, 6*7.33);
+				tabCapQuatrePorts[j][i] = capRS(a[j].arrivee.abcisse, a[j].arrivee.ordonnee, Point.GpsToBreizh(680, 1280, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (a[j].arrivee.abcisse, a[j].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).abcisse, Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[i]).ordonnee, 6*7.33);
 			}
 		}
 		return tabCapQuatrePorts;
+	}
+	
+	
+	/**
+	 * affiche le tableau de la liste des caps pour les 4 ports les plus proches
+	 */
+	public static void affTab() {
+		double essai [][] = tabCapQuatrePorts();
+		for(int i = 0; i < essai[0].length; i++) {
+			for(int j = 0; j < essai.length; j++) {
+				System.out.print(essai[j][i]);
+			}
+		}
 	}
 	
 	
@@ -426,16 +440,7 @@ public class Traitement {
 	}
 	
 	
-	/**
-	 * affiche le tableau de la liste des caps pour les 4 ports les plus proches
-	 */
-	public static void affTab() {
-		for(int i = 0; i < tabCapQuatrePorts()[0].length; i++) {
-			for(int j = 0; j < tabCapQuatrePorts().length; j++) {
-				System.out.print(tabCapQuatrePorts()[j][i]);
-			}
-		}
-	}
+	
 	
 	
 	/**
@@ -444,20 +449,21 @@ public class Traitement {
 	 */
 	public static double[] essaiZero () {
 		int nbCap = 0;
-		for(int k = 0; k < Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0]).length; k++) {
-			if(capDeg(Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].depart.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].depart.ordonnee, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].arrivee.ordonnee)
-				!= capDeg(Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].arrivee.ordonnee)
-				|| distanceDeAr(Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].depart.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].depart.ordonnee, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k].arrivee.ordonnee)
-				!= distanceDeAr(Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[k+1].arrivee.ordonnee)) {
+		Vector [] a = Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0]);
+		for(int k = 0; k < a.length; k++) {
+			if(capDeg(a[k].depart.abcisse, a[k].depart.ordonnee, a[k].arrivee.abcisse, a[k].arrivee.ordonnee)
+				!= capDeg(a[k+1].depart.abcisse, a[k+1].depart.ordonnee, a[k+1].arrivee.abcisse, a[k+1].arrivee.ordonnee)
+				|| distanceDeAr(a[k].depart.abcisse, a[k].depart.ordonnee, a[k].arrivee.abcisse, a[k].arrivee.ordonnee)
+				!= distanceDeAr(a[k+1].depart.abcisse, a[k+1].depart.ordonnee, a[k+1].arrivee.abcisse, a[k+1].arrivee.ordonnee)) {
 				nbCap = nbCap + 1;
 			}
 		}
 		double tabDistance [] = new double[nbCap];
 		
 		for (int i = 0; i < tabDistance.length; i++) {
-			double interLatX = latXInterRSetRF ( Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).ordonnee, DialogInfo.info[2] * 7.33);
-			double interLongY = longYInterRSetRF( Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).ordonnee, DialogInfo.info[2] * 7.33,
-								latXInterRSetRF ( Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[0], ordOrig()[0], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[0])[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).ordonnee, DialogInfo.info[2] * 7.33));
+			double interLatX = latXInterRSetRF ( Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).ordonnee, DialogInfo.info[2] * 7.33);
+			double interLongY = longYInterRSetRF( Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[0]).ordonnee, DialogInfo.info[2] * 7.33,
+								interLatX);
 
 			double interLat = latInterRSetRF(interLatX, interLongY);
 			double interLong = longInterRSetRF(interLatX, interLongY);
@@ -475,20 +481,21 @@ public class Traitement {
 	 */
 	public static double[] essaiUn () {
 		int nbCap = 0;
-		for(int k = 0; k < Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1]).length; k++) {
-			if(capDeg(Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].depart.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].depart.ordonnee, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].arrivee.ordonnee)
-				!= capDeg(Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].arrivee.ordonnee)
-				|| distanceDeAr(Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].depart.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].depart.ordonnee, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k].arrivee.ordonnee)
-				!= distanceDeAr(Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[k+1].arrivee.ordonnee)) {
+		Vector [] a = Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1]);
+		for(int k = 0; k < a.length; k++) {
+			if(capDeg(a[k].depart.abcisse, a[k].depart.ordonnee, a[k].arrivee.abcisse, a[k].arrivee.ordonnee)
+				!= capDeg(a[k+1].depart.abcisse, a[k+1].depart.ordonnee, a[k+1].arrivee.abcisse, a[k+1].arrivee.ordonnee)
+				|| distanceDeAr(a[k].depart.abcisse, a[k].depart.ordonnee, a[k].arrivee.abcisse, a[k].arrivee.ordonnee)
+				!= distanceDeAr(a[k+1].depart.abcisse, a[k+1].depart.ordonnee, a[k+1].arrivee.abcisse, a[k+1].arrivee.ordonnee)) {
 				nbCap = nbCap + 1;
 			}
 		}
 		double tabDistance [] = new double[nbCap];
 		
 		for (int i = 0; i < tabDistance.length; i++) {
-			double interLatX = latXInterRSetRF ( Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).ordonnee, DialogInfo.info[2] * 7.33);
-			double interLongY = longYInterRSetRF( Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).ordonnee, DialogInfo.info[2] * 7.33,
-								latXInterRSetRF ( Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.abcisse, Courant.getCourant(coeffDir()[1], ordOrig()[1], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[1])[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).ordonnee, DialogInfo.info[2] * 7.33));
+			double interLatX = latXInterRSetRF ( Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).ordonnee, DialogInfo.info[2] * 7.33);
+			double interLongY = longYInterRSetRF( Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).abcisse, Point.GpsToBreizh(680, 1280, new Point (a[i].arrivee.abcisse, a[i].arrivee.ordonnee)).ordonnee,  Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse, Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).abcisse, Point.GpsToBreizh(680, 1280, quatrePortsLesPlusProches()[1]).ordonnee, DialogInfo.info[2] * 7.33,
+								interLatX);
 
 			double interLat = latInterRSetRF(interLatX, interLongY);
 			double interLong = longInterRSetRF(interLatX, interLongY);
@@ -506,11 +513,12 @@ public class Traitement {
 	 */
 	public static double[] essaiDeux () {
 		int nbCap = 0;
-		for(int k = 0; k < Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2]).length; k++) {
-			if(capDeg(Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].depart.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].depart.ordonnee, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].arrivee.ordonnee)
-				!= capDeg(Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].arrivee.ordonnee)
-				|| distanceDeAr(Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].depart.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].depart.ordonnee, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].arrivee.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k].arrivee.ordonnee)
-				!= distanceDeAr(Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].depart.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].depart.ordonnee, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].arrivee.abcisse, Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2])[k+1].arrivee.ordonnee)) {
+		Vector[]a = Courant.getCourant(coeffDir()[2], ordOrig()[2], new Point(DialogInfo.info[1], DialogInfo.info[0]), quatrePortsLesPlusProches()[2]);
+		for(int k = 0; k < a.length; k++) {
+			if(capDeg(a[k].depart.abcisse, a[k].depart.ordonnee, a[k].arrivee.abcisse, a[k].arrivee.ordonnee)
+				!= capDeg(a[k+1].depart.abcisse, a[k+1].depart.ordonnee, a[k+1].arrivee.abcisse, a[k+1].arrivee.ordonnee)
+				|| distanceDeAr(a[k].depart.abcisse, a[k].depart.ordonnee, a[k].arrivee.abcisse, a[k].arrivee.ordonnee)
+				!= distanceDeAr(a[k+1].depart.abcisse, a[k+1].depart.ordonnee, a[k+1].arrivee.abcisse, a[k+1].arrivee.ordonnee)) {
 				nbCap = nbCap + 1;
 			}
 		}
@@ -627,7 +635,7 @@ public class Traitement {
 			Point portsPlusProches[] = new Point[4];
 			 for(int j = 1 ; j <= 4 ; j++) {
 				 for (int i = 0; i < Point.getPort().length - j; i++) {
-						if(distanceDeAr(DialogInfo.info[1], DialogInfo.info[0],essai[i].abcisse, essai[i].ordonnee) < distanceDeAr(DialogInfo.info[1], DialogInfo.info[0],essai[i+1].abcisse, essai[i+1].ordonnee)) {
+						if(distanceDeAr(48.294054, -5.623783,essai[i].abcisse, essai[i].ordonnee) < distanceDeAr(48.294054, -5.623783,essai[i+1].abcisse, essai[i+1].ordonnee)) {
 							Point c = essai[i];
 							essai[i] = essai[i+1];
 							essai[i+1] = c;
@@ -649,8 +657,8 @@ public class Traitement {
 	 * @return : le coefficient directeur de la droite (AB)
 	 */
 	public static double[] coeffDir () {
-		double latXA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse;
-		double longYA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee;
+		double latXA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).abcisse;
+		double longYA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).ordonnee;
 		double coeffDir [] = new double[4];
 		for(int i = 0; i < coeffDir.length; i++) {
 			double latXB = Point.GpsToBreizh(680, 1280, new Point(quatrePortsLesPlusProches()[i].abcisse, quatrePortsLesPlusProches()[i].ordonnee)).abcisse;
@@ -665,8 +673,8 @@ public class Traitement {
 	 * @return : l'ordonnée à l'origine de la droite (AB)
 	 */
 	public static double[] ordOrig () {
-		double latXA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).abcisse;
-		double longYA = Point.GpsToBreizh(680, 1280, new Point(DialogInfo.info[1], DialogInfo.info[0])).ordonnee;
+		double latXA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).abcisse;
+		double longYA = Point.GpsToBreizh(680, 1280, new Point(48.294054, -5.623783)).ordonnee;
 		
 		double ordOrig[] = new double[4];
 		for(int i = 0; i < ordOrig.length; i++) {
