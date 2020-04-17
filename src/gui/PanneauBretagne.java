@@ -24,9 +24,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import courant.Courant;
 import traitement.Traitement;
 import utils.Breizh;
 import utils.Point;
+import utils.Vector;
 
 public class PanneauBretagne extends JPanel{
 	
@@ -373,6 +375,36 @@ public class PanneauBretagne extends JPanel{
 
 		g.fillPolygon(bretagne.getPointsY(), bretagne.getPointsX(), bretagne.getPointsX().length);
 		//g.fillPolygon(rectX, rectY, rectX.length);
+		
+		g.setColor(Color.BLACK);
+		
+        Vector[] courant = Courant.getAffCourant();
+        for(Vector s:courant) {
+//        	g.drawLine((int)Point.GpsToBreizh(h, l, s.depart).ordonnee,(int) Point.GpsToBreizh(h, l, s.depart).abcisse,(int)Point.GpsToBreizh(h, l, s.arrivee).ordonnee,(int) Point.GpsToBreizh(h, l, s.arrivee).abcisse);
+//        	System.out.println(Point.GpsToBreizh(h, l, s.depart).ordonnee);
+//        	System.out.println(Point.GpsToBreizh(h, l, s.depart).abcisse);
+//        	System.out.println(Point.GpsToBreizh(h, l, s.arrivee).ordonnee);
+//        	System.out.println(Point.GpsToBreizh(h, l, s.arrivee).abcisse);
+
+            int dx, dy;
+            double n;
+            
+            
+            int y1 = (int)Point.GpsToBreizh(h, l, s.depart).abcisse;
+            int x1 = (int)Point.GpsToBreizh(h, l, s.depart).ordonnee;
+            
+            int y2 = (int)Point.GpsToBreizh(h, l, s.arrivee).abcisse;
+            int x2 = (int)Point.GpsToBreizh(h, l, s.arrivee).ordonnee;
+            
+             n = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+             dx = (int) ((5 * (x2 - x1)) / n);
+             dy = (int) ((5 * (y2 - y1)) / n);
+
+             g.drawLine(x1, y1, x2, y2);
+             g.drawLine(x2, y2, x2 - dx - dy, y2 - dy + dx);
+             g.drawLine(x2, y2, x2 - dx + dy, y2 - dy - dx);
+        	
+        }
 		
 		g.setColor(Color.black);
 

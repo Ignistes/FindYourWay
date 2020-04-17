@@ -53,7 +53,7 @@ public class Point {
 	public static Point[] getPort() {
 		double[] X 	 = new double[91];
 		double[] Y 	 = new double[91];
-		Point[] port = new Point[91];
+		Point[]  port = new Point[91];
 		int i = 0;
 		Path chemin = Paths.get("PortLatitude.txt");
 	    try (BufferedReader reader = Files.newBufferedReader(chemin)){

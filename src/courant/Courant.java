@@ -21,7 +21,7 @@ import ucar.nc2.dataset.NetcdfDataset;
 import utils.Vector;
 
 public class Courant {
-
+	
 	public static Vector[] Streams;
 	
 	public Courant() {
@@ -54,6 +54,7 @@ public class Courant {
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}*/
+		
 		ArrayList<Vector> inter = new ArrayList<Vector>();
 		
 		for(int i = 0;i<streams.length;i++) {
@@ -133,9 +134,9 @@ public class Courant {
 			double X = departBreizh.abcisse + ih;
 			double Y = a*X + b;
 			Point p = new Point(X,Y);
-			if(i==0)System.out.println(p);
+			//if(i==0)System.out.println(p);
 			Point pGPS = Point.BreizhToGps(h, l, p);
-			if(i==0)System.out.println(pGPS);
+			//if(i==0)System.out.println(pGPS);
 			Vector inter = carre[0];
 			int j =0;
 			//double distancePI = Traitement.distanceDeAr(inter.depart.abcisse, inter.depart.ordonnee, pGPS.abcisse, pGPS.ordonnee);
@@ -314,7 +315,7 @@ longitude_v =
 		 * 
 		 * 
 		 * */
-private static void transforme(String cheminTxt,String chemin2Txt) {
+	private static void transforme(String cheminTxt,String chemin2Txt) {
 		
 		Path cheminX = Paths.get(cheminTxt);
 		
@@ -422,6 +423,54 @@ Path cheminX = Paths.get("Courant/CourantBon/UModif.txt");
 	    
 	    System.out.println(txtU.size());
 	    
+	}
+	
+	public static Vector[] getAffCourant(){
+		
+		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        // get maximum window bounds
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        int h = (int) maximumWindowBounds.getHeight();
+        int l = (int) maximumWindowBounds.getWidth();
+		
+        if(Courant.Streams==null)new Courant();
+        
+        Vector[] res = new Vector[300];
+        int n = 0;
+		for(int i=1;i<=15;i++ ) {
+			int x =  i*(h/15) ;
+			for(int j=1;j<=20;j++) {
+				int y =  j*(l/20);
+				System.out.println(n);
+				Point p = new Point(x,y);
+				Vector inter = Streams[0];
+				Point interdepart = Point.GpsToBreizh(h, l, inter.depart);
+				double distancePI = Math.sqrt(((interdepart.abcisse-p.abcisse)*(interdepart.abcisse-p.abcisse)) + ((interdepart.ordonnee-p.ordonnee)*(interdepart.ordonnee-p.ordonnee)));
+				for(Vector s:Courant.Streams) {
+					Point interS = Point.GpsToBreizh(h, l, s.depart);
+					double distancePS = Math.sqrt(((interS.abcisse-p.abcisse)*(interS.abcisse-p.abcisse)) + ((interS.ordonnee-p.ordonnee)*(interS.ordonnee-p.ordonnee)));
+					if(distancePS<distancePI) {
+						inter = s;
+						interdepart = Point.GpsToBreizh(h, l, inter.depart);
+						distancePI = Math.sqrt(((interdepart.abcisse-p.abcisse)*(interdepart.abcisse-p.abcisse)) + ((interdepart.ordonnee-p.ordonnee)*(interdepart.ordonnee-p.ordonnee)));
+					}
+				}
+				res[n] = new Vector(Point.BreizhToGps(h, l, p),Vector.getArriveeGps2(Point.BreizhToGps(h, l, p), inter.getfVert(), inter.getfHori()),Vector.getVitesse(inter.getfVert(), inter.getfHori()));
+				n++;
+			}
+		}
+		return res;
+	}
+	
+	public static void affTab(Vector[] tab) {
+		int i = 1;
+		for(Vector s:tab) {
+			System.out.println(i);
+			System.out.println(s);
+			i++;
+		}
 	}
 	
 		 
