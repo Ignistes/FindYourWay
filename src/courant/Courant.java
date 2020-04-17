@@ -109,7 +109,7 @@ public class Courant {
 	public static Vector[] getCourant(double a,double b,Point depart,Point arrivee) {
 		
 		Vector[] carre = petitCourant(depart,arrivee);
-		System.out.println(carre.length);
+		//System.out.println(carre.length);
 		double distance = Math.sqrt(depart.abcisse*depart.abcisse + arrivee.ordonnee*arrivee.ordonnee);
 		double intervalle = distance / 500.0;
 		ArrayList<Vector> res = new ArrayList<Vector>();
@@ -125,9 +125,9 @@ public class Courant {
         
         
 		for(int i = 0;i<=500;i++) {
-			if(i%100==0) {
-				System.out.println("getCourant i : " + i);
-			}
+//			if(i%100==0) {
+//				System.out.println("getCourant i : " + i);
+//			}
 			Point departBreizh = Point.GpsToBreizh(h, l, depart);
 			double ih = intervalle*i;
 			double X = departBreizh.abcisse + ih;
@@ -156,8 +156,8 @@ public class Courant {
 			Vector Vfinal = new Vector(pGPS,Vector.getArriveeGps(pGPS, inter.getfVert(), inter.getfHori()),inter.vitesse);
 			Vfinal.setF(inter.getfVert(), inter.getfHori());
 			res.add(Vfinal);
-			if(i==0)
-			System.out.println(Vfinal);
+//			if(i==0)
+//			System.out.println(Vfinal);
 		}
 		return res.toArray(new Vector[res.size()]);
 	}
