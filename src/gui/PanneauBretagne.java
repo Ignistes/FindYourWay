@@ -40,6 +40,9 @@ public class PanneauBretagne extends JPanel{
 	
 	JButton legendB;
 	
+	
+	JButton infos;
+	
 	JButton port1;
 	JButton port2;
 	JButton port3;
@@ -141,10 +144,50 @@ public class PanneauBretagne extends JPanel{
 	
 	
 	public void boutonPorts () {
+		
+		infos = new JButton();
+		
+		infos.setBounds(0, 50, 200, 50);
+		
+		infos.setText("Informations sur le port");
+		
+		
+		infos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String chaine = "";
+				String fichier = "image/port_camaret_sur_mer.txt";
+				{
+					// lecture du fichier texte
+					try {
+						InputStream ips = new FileInputStream(fichier);
+						InputStreamReader ipsr = new InputStreamReader(ips);
+						BufferedReader br = new BufferedReader(ipsr);
+						String ligne;
+						while ((ligne = br.readLine()) != null) {
+							if (ligne.contains("nom :")) {
+								String[] st = ligne.split(ligne, ':');
+								System.out.println("Nom = " + st[1]);
+							}
+							chaine += ligne + "\n";
+						}
+						br.close();
+					} catch (Exception e) {
+						System.out.println(e.toString());
+					}
+				}
+				String text = new String(chaine.getBytes(),Charset.forName("UTF-8"));
+				// Boîte du message d'information
+				JOptionPane jop1 = new JOptionPane();
+				jop1.showMessageDialog(null, text,  new String("Infomations sur le port".getBytes(),Charset.forName("UTF-8")), JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		
 		port1 = new JButton();
 		port2 = new JButton();
 		port3 = new JButton();
 		port4 = new JButton();
+		
 		
 		int xport1 = (int)Traitement.tabPointsB()[0].abcisse;
 		int xport2 = (int)Traitement.tabPointsB()[1].abcisse;
@@ -159,7 +202,7 @@ public class PanneauBretagne extends JPanel{
 		port4.setBounds((int)Traitement.tabPointsB()[3].ordonnee - 5,(int)Traitement.tabPointsB()[3].abcisse - 5, 10, 10);
 		
 		port1.setBackground(Color.CYAN);
-		port2.setBackground(Color.CYAN);
+		port2.setBackground(Color.ORANGE);
 		port3.setBackground(Color.CYAN);
 		port4.setBackground(Color.CYAN);
 		
@@ -176,15 +219,19 @@ public class PanneauBretagne extends JPanel{
 				//clicked = true;
 				//if (clicked == true) {
 					//remove(pan);
+				
+				add(infos);
+				
 				pan1 = new Caps(Traitement.tabCapQuatrePorts(),Traitement.pointInter(),0);
-					scroll = new JScrollPane(pan1);
-					scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-					scroll.setBounds(1050, 270, 200, 300);	
-					scroll.setBorder(BorderFactory.createLineBorder(Color.black));
-					//scroll.setVisible(true);
-					add(scroll);
-					scroll.repaint();
-					//revalidate();
+				scroll = new JScrollPane(pan1);
+				scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+				scroll.setBounds(1050, 270, 200, 300);	
+				scroll.setBorder(BorderFactory.createLineBorder(Color.black));
+				//scroll.setVisible(true);
+				add(scroll);
+				scroll.repaint();
+				infos.repaint();
+				//revalidate();
 			/*	
 			} else {
 					pan = new Caps();
@@ -213,6 +260,8 @@ public class PanneauBretagne extends JPanel{
 				//clicked = true;
 				//if (clicked == true) {
 					//remove(pan);
+				
+				add(infos);
 				pan2 = new Caps(Traitement.tabCapQuatrePorts(),Traitement.pointInter(),1);
 					scroll = new JScrollPane(pan2);
 					scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -250,6 +299,7 @@ public class PanneauBretagne extends JPanel{
 				//clicked = true;
 				//if (clicked == true) {
 					//remove(pan);
+				add(infos);
 				pan3 = new Caps(Traitement.tabCapQuatrePorts(),Traitement.pointInter(),2);
 					scroll = new JScrollPane(pan3);
 					scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -288,6 +338,7 @@ public class PanneauBretagne extends JPanel{
 				//clicked = true;
 				//if (clicked == true) {
 					//remove(pan);
+				add(infos);
 				pan4 = new Caps(Traitement.tabCapQuatrePorts(),Traitement.pointInter(),3);
 					scroll = new JScrollPane(pan4);
 					scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -321,10 +372,7 @@ public class PanneauBretagne extends JPanel{
 			}
 		});
 		
-	}
-	
-	
-		
+	}	
 	
 	public void paintComponent(Graphics g) {
 
