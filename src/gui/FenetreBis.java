@@ -24,16 +24,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import traitement.Traitement;
+import utils.Point;
+
 public class FenetreBis {
 
-	JFrame cadre;
-	JLabel cap = new JLabel();
-	JScrollPane scroll;
+	static JFrame cadre;
 	
-
+	//JLabel cap = new JLabel();
+	
 	public static Dialog dialog;
 	public static DialogDec dialogDec;
 	public static boolean coordonnees;
+	
+	
+	public static JFrame fenetrePr() {
+		return cadre;
+	}
 	
 	public static boolean whatCo() {
 		return coordonnees;
@@ -43,11 +50,6 @@ public class FenetreBis {
 		return dialog.getInfo();
 	}
 
-	public void changementPan(JPanel panneau) {
-		panneau.setSize(cadre.getSize());
-		cadre.setContentPane(panneau);
-	}
-
 	public void gestionBouton(JButton info, JButton aideInfo, JFrame cadre, int h, int l) {
 		cadre.getContentPane().add(info);
 		cadre.getContentPane().add(aideInfo);
@@ -55,16 +57,25 @@ public class FenetreBis {
 		info.setBounds((l / 2) - 100, h / 2, 200, 30);
 	}
 
-	public String remplirLabCap(double [] cap) {
+	public static String remplirLabCap(double [][] cap , Point [][] coord, int j) {		
 		String s = "<html>";
-		for (int i = 0; i<cap.length-1; i++) {
-			s += String.valueOf(cap[i]) + "<br>";
+		for (int i = 0; i<499; i++) {
+			s += "Cap :" + "<br>" + String.valueOf(cap[i][j]) + "<br>" + "Point géographique :" + "<br>" + String.valueOf(coord[i][j].abcisse) + "<br>" +  String.valueOf(coord[i][j].ordonnee) + "<br>" + "<br>" ;
 		}
-		s += String.valueOf(cap[cap.length-1]) + "</html>";
+		s += "Cap :" + "<br>" + String.valueOf(cap[499][j])+ "<br>" + "Point géographique :" + "<br>" + String.valueOf(coord[499][j].abcisse) + "<br>" +  String.valueOf(coord[499][j].ordonnee) + "</html>";
 		return s;
+	}
+	
+	public static double[] testScroll() {
+		double [] test = new double[100];
+		for (int i = 0; i<100; i++) {
+			test[i] = Math.random();
+		}
+		return test;
 	}
 
 	public FenetreBis(JPanel panneau) {
+		
 
 		// get local graphics environment
 		GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -73,8 +84,8 @@ public class FenetreBis {
 		int h = (int) maximumWindowBounds.getHeight();
 		int l = (int) maximumWindowBounds.getWidth();
 
-		JPanel acceuil = new Panneau();
 		JPanel bretagne = new PanneauBretagne();
+		
 		
 		String c = "Caps à suivre";
 		String cFinal = new String(c.getBytes(),Charset.forName("UTF-8"));
@@ -82,19 +93,19 @@ public class FenetreBis {
 		String cdFinal = new String(cd.getBytes(),Charset.forName("UTF-8"));
 		String cg = "Coordonnées deg°min'sec''ptC"; 
 		String cgFinal = new String(cg.getBytes(),Charset.forName("UTF-8"));
-		String choice = "Choisissez votre choix de coordonnées"; 
+		String choice = "Choisissez votre type de coordonnées"; 
 		String choiceFinal = new String(choice.getBytes(),Charset.forName("UTF-8"));
-		
-		scroll = new JScrollPane();
-		scroll.setBounds(5, 112, 180, 300);
 		
 		
 		//Le panel qui affiche les caps
-		JPanel pan = new JPanel();
+		
+		
+		//Caps pan = new Caps();
+		
+		
 		//pan.setLayout(new FlowLayout());
-		pan.setBorder(BorderFactory.createLineBorder(Color.black));
-		pan.setBorder(BorderFactory.createTitledBorder(cFinal));
-		pan.add(scroll);
+		//pan.setBorder(BorderFactory.createLineBorder(Color.black));
+		//pan.setBorder(BorderFactory.createTitledBorder(cFinal));
 		
 		
 		//Le panel qui donne le choix a l'utilisateur pour rentrer ses coordonnes
@@ -132,11 +143,14 @@ public class FenetreBis {
 		 * GridBagConstraints gbc = new GridBagConstraints();
 		 */
 		
-		
+		//scroll = new JScrollPane(cap);
+		//scroll.setBounds(5, 5, 190, 390);
 		
 
 		cadre.getContentPane().add(info);
 		cadre.getContentPane().add(aideInfo);
+		
+		//pan.add(scroll);
 
 		//aideInfo.setBounds((l / 2) - 150, h / 3, 300, 30);
 		//info.setBounds((l / 2) - 100, h / 2, 200, 30);
@@ -201,50 +215,92 @@ public class FenetreBis {
 				if (d.showDialog()) {
 					coordonnees = true;
 					dialog = d;
-					cadre.revalidate();
-					changementPan(bretagne);
+					//pan.setBounds(l - 250, 200, 200, 400);
+					//JPanel log = new logiciel();
+					
+					/*
+					
+					JScrollPane scroll = new JScrollPane(pan);
+					scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+					scroll.setBounds(l - 200, 250, 200, 300);
+					
+				
+					cadre.getContentPane().add(scroll);
+					*/
+					cadre.setContentPane(bretagne);
+					
 					cadre.getContentPane().add(retour);
-					cadre.getContentPane().add(pan);
+					//cadre.getContentPane().add(log);
 					retour.setBounds(10, 10, 80, 23);
+					
+					cadre.repaint();
+					cadre.revalidate();
+					
+					
 					
 					//On remplira le label par le tableau retournant les caps à suivre
 					//cap.setText(remplirLabCap(Traitement.tabCapLePortLePlusRapide()));
-					cap.setText("<html>Ligne1<br>Ligne2<br>Ligne3<br>Ligne4<br>Ligne5<br>Ligne6<br>Ligne7<br>Ligne7</html>");
-					pan.add(cap);
+					//cap.setText(remplirLabCap(testScroll()));
+					//cap.setText("<html>Ligne1<br>Ligne2<br>Ligne3<br>Ligne4<br>Ligne5<br>Ligne6<br>Ligne7<br>Ligne7</html>");
+					//cadre.add(scroll);
+					//scroll.setViewportView(cap);
+					//pan.add(cap);
 					
 					// Positionner le Panel, ou autre objet qui servira à donner les caps, en
 					// fonction de la position du bateau
-					pan.setBounds(l - 250, h - 350, 200, 400);
+					
 	
 					//cap.setLocation((int)pan.getLocation().getX()-10, (int)pan.getLocation().getY()-10);
-					cap.setBounds(5,5,100,300);		
+					//cap.setBounds(5,5,100,300);		
 				}
 			}
 		});
 		
 		dec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				DialogDec d = new DialogDec(null, "Informations", true);
 				if (d.showDialog()) {
 					coordonnees = false;
 					dialogDec = d;
-					cadre.revalidate();
-					changementPan(bretagne);
-					cadre.getContentPane().add(retour);
-					cadre.getContentPane().add(pan);
+					//pan.setBounds(l - 250, 200, 200, 400);
+					JPanel log = new logiciel();
+				
+					/*
+					JScrollPane scroll = new JScrollPane(pan);
+					scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+					scroll.setBounds(l - 230, 250, 200, 300);
+					
+										
+					cadre.getContentPane().add(scroll);
+					*/
+					
+					cadre.setContentPane(bretagne);
+					cadre.getContentPane().add(log);
+					
+					cadre.add(retour);
+					//cadre.getContentPane().add(pan);
 					retour.setBounds(10, 10, 80, 23);
 					
+					cadre.repaint();
+					cadre.revalidate();
+					
+					
+										
 					//On remplira le label par le tableau retournant les caps à suivre
 					//cap.setText(remplirLabCap(Traitement.tabCapLePortLePlusRapide()));
-					cap.setText("<html>Ligne1<br>Ligne2<br>Ligne3<br>Ligne4<br>Ligne5<br>Ligne6<br>Ligne7<br>Ligne7</html>");
-					pan.add(cap);
+					//cap.setText("<html>Ligne1<br>Ligne2<br>Ligne3<br>Ligne4<br>Ligne5<br>Ligne6<br>Ligne7<br>Ligne7</html>");
+					//cap.setText(remplirLabCap(testScroll()));
+					//pan.add(scroll);
+					//scroll.setViewportView(cap);
+					//pan.add(cap);
 					
 					// Positionner le Panel, ou autre objet qui servira à donner les caps, en
 					// fonction de la position du bateau
-					pan.setBounds(l - 250, h - 350, 200, 400);
+					
 	
 					//cap.setLocation((int)pan.getLocation().getX()-10, (int)pan.getLocation().getY()-10);
-					cap.setBounds(5,5,100,300);					
+					//cap.setBounds(5,5,100,300);					
 				}
 			}
 		});

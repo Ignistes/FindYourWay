@@ -17,7 +17,7 @@ public class Traitement {
 	
 	
 	// A faire demain : 
-	// - demander à Pierre comment obtenir hauteur et largeur suivant les écrans
+	// - demander ï¿½ Pierre comment obtenir hauteur et largeur suivant les ï¿½crans
 
 
 	public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class Traitement {
         int l = (int) maximumWindowBounds.getWidth();
 		
 		
-		/*System.out.println(capDeg(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" degrés");	//test de la fonction capDeg qui calcule le cap entre deux points	 
+		/*System.out.println(capDeg(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" degrï¿½s");	//test de la fonction capDeg qui calcule le cap entre deux points	 
 		System.out.println(distanceDeAr(47.4166667,-2.8333333333333335,47.4116651,-2.6207216)+" miles nautiques");	//test de la fonction distanceDeAr qui calcule la distance entre deux points	
 		System.out.println(coordGeoDecLat(48, 6, 40.819, "N"));
 		*/
@@ -88,10 +88,10 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latA : latitude en coordonnées gps d'un point A
-	 * @param longA : longitude en coordonnées gps d'un point A
-	 * @param latB : latitude en coordonnées gps d'un point B
-	 * @param longB : longitude en coordonnées gps d'un point B
+	 * @param latA : latitude en coordonnï¿½es gps d'un point A
+	 * @param longA : longitude en coordonnï¿½es gps d'un point A
+	 * @param latB : latitude en coordonnï¿½es gps d'un point B
+	 * @param longB : longitude en coordonnï¿½es gps d'un point B
 	 * @return : le rapport la distance breizh et la distance gps
 	 */
 	public static double distanceXY (double latA, double longA, double latB, double longB) {
@@ -110,11 +110,11 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latDe : latitude en coordonnées géographiques du point de départ
-	 * @param longDe : longitude en coordonnées géographiques du point de départ
-	 * @param latAr : latitude en coordonnées géographiques du point d'arrivée
-	 * @param longAr : longitude en coordonnées géographiques du point d'arrivée
-	 * @return distance entre le point de départ et le point d'arrivée
+	 * @param latDe : latitude en coordonnï¿½es gï¿½ographiques du point de dï¿½part
+	 * @param longDe : longitude en coordonnï¿½es gï¿½ographiques du point de dï¿½part
+	 * @param latAr : latitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e
+	 * @param longAr : longitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e
+	 * @return distance entre le point de dï¿½part et le point d'arrivï¿½e
 	 */
 	public static double distanceDeAr(double latDe, double longDe, double latAr, double longAr) {
 		double distance = Math.acos(Math.sin(Math.toRadians(latDe))
@@ -130,26 +130,26 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latDe : latitude en coordonnées géographiques du point de départ
-	 * @param longDe : longitude en coordonnées géographiques du point de départ
-	 * @param latAr : latitude en coordonnées géographiques du point d'arrivée
-	 * @param longAr : longitude en coordonnées géographiques du point d'arrivée
-	 * @return cap ou direction entre le point de départ et le point d'arrivée
+	 * @param latDe : latitude en coordonnï¿½es gï¿½ographiques du point de dï¿½part
+	 * @param longDe : longitude en coordonnï¿½es gï¿½ographiques du point de dï¿½part
+	 * @param latAr : latitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e
+	 * @param longAr : longitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e
+	 * @return cap ou direction entre le point de dï¿½part et le point d'arrivï¿½e
 	 */
 	public static double capDeg(double latDe, double longDe, double latAr, double longAr) {
 		double x = Math.log(Math.tan(Math.toRadians(latAr)/2 + 3.14/4)/Math.tan(Math.toRadians(latDe)/2 + 3.14/4));
 		double y = Math.abs(Math.toRadians(longDe) - (Math.toRadians(longAr)) );
-		double cap = Math.toDegrees(Math.atan2(y, x));	//cap en degrés
+		double cap = Math.toDegrees(Math.atan2(y, x));	//cap en degrï¿½s
 		return cap;
 	}
 	
 	
 	/**
 	 * 
-	 * @param latDe : latitude en coordonnées géographiques du point de départ
+	 * @param latDe : latitude en coordonnï¿½es gï¿½ographiques du point de dï¿½part
 	 * @param distance : norme du vecteur
 	 * @param cap : direction du vecteur
-	 * @return latitude en coordonnées géographiques du point d'arrivée du vecteur
+	 * @return latitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e du vecteur
 	 */
 	public static double coordGeoLat(double latDe,double distance, double cap){
 		int rayonT = 6371;	//rayon de la Terre en km
@@ -163,12 +163,12 @@ public class Traitement {
 
 	/**
 	 * 
-	 * @param longDe : longitude en coordonnées géographiques du point de départ
-	 * @param latDe : latitude en coordonnées géographiques du point de départ
-	 * @param latAr : latitude en coordonnées géographiques du point d'arrivée
+	 * @param longDe : longitude en coordonnï¿½es gï¿½ographiques du point de dï¿½part
+	 * @param latDe : latitude en coordonnï¿½es gï¿½ographiques du point de dï¿½part
+	 * @param latAr : latitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e
 	 * @param cap : direction du vecteur
 	 * @param distance : norme du vecteur
-	 * @return longitude en coordonnées géographiques du point d'arrivée du vecteur
+	 * @return longitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e du vecteur
 	 */
 	public static double coordGeoLong(double longDe, double latDe, double latAr, double cap, double distance) {
 		int rayonT = 6371;	//rayon de la Terre en km
@@ -186,12 +186,12 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latx : latitude en coordonnée x,y du point d'arrivée du vecteur courant
-	 * @param longy : longitude en coordonnée x,y du point d'arrivée du vecteur courant
+	 * @param latx : latitude en coordonnï¿½e x,y du point d'arrivï¿½e du vecteur courant
+	 * @param longy : longitude en coordonnï¿½e x,y du point d'arrivï¿½e du vecteur courant
 	 * @param rayon : distance de la RS = vitesse du bateau (1h)
 	 * @param coeffDir : coefficient directeur de la droite (AB)
-	 * @param ordOrig : ordonnée à l'origine de la droite (AB)
-	 * @return première solution x de l'intersection entre le cercle, de rayon égal à la distance RS, et la droite (AB)
+	 * @param ordOrig : ordonnï¿½e ï¿½ l'origine de la droite (AB)
+	 * @return premiï¿½re solution x de l'intersection entre le cercle, de rayon ï¿½gal ï¿½ la distance RS, et la droite (AB)
 	 */
 	public static double pointIntersectionXUn(double latX, double longY, double rayon, double coeffDir, double ordOrig) {
 		double x = 1;
@@ -216,12 +216,12 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latx : latitude en coordonnée x,y du point d'arrivée du vecteur courant
-	 * @param longy : longitude en coordonnée x,y du point d'arrivée du vecteur courant
+	 * @param latx : latitude en coordonnï¿½e x,y du point d'arrivï¿½e du vecteur courant
+	 * @param longy : longitude en coordonnï¿½e x,y du point d'arrivï¿½e du vecteur courant
 	 * @param rayon : distance de la RS = vitesse du bateau (1h)
 	 * @param coeffDir : coefficient directeur de la droite (AB)
-	 * @param ordOrig : ordonnée à l'origine de la droite (AB)
-	 * @return deuxième solution x de l'intersection entre le cercle, de rayon égal à la distance RS, et la droite (AB)
+	 * @param ordOrig : ordonnï¿½e ï¿½ l'origine de la droite (AB)
+	 * @return deuxiï¿½me solution x de l'intersection entre le cercle, de rayon ï¿½gal ï¿½ la distance RS, et la droite (AB)
 	 */
 	public static double pointIntersectionXDeux(double latX, double longY, double rayon, double coeffDir, double ordOrig) {
 		double a = 1 + coeffDir*coeffDir;
@@ -244,11 +244,11 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param xUn : première solution x de l'intersection entre un cercle et une droite
-	 * @param xDeux : deuxième solution x de l'intersection entre un cercle et une droite
-	 * @param xA : coordonnée x du point de départ du bateau
-	 * @param xB : coordonnée x du point d'arrivée du bateau
-	 * @return la coordonnée x du point d'intersection entre un cercle et une droite
+	 * @param xUn : premiï¿½re solution x de l'intersection entre un cercle et une droite
+	 * @param xDeux : deuxiï¿½me solution x de l'intersection entre un cercle et une droite
+	 * @param xA : coordonnï¿½e x du point de dï¿½part du bateau
+	 * @param xB : coordonnï¿½e x du point d'arrivï¿½e du bateau
+	 * @return la coordonnï¿½e x du point d'intersection entre un cercle et une droite
 	 */
 	public static double pointIntersectionX (double xUn, double xDeux, double xA, double xB) {
 		double x = 0;
@@ -268,7 +268,7 @@ public class Traitement {
 	 * @param coeffDir
 	 * @param ordOrig
 	 * @param x
-	 * @return la coordonnée y du point d'intersection entre un cercle et une droite
+	 * @return la coordonnï¿½e y du point d'intersection entre un cercle et une droite
 	 */
 	public static double pointIntersectionY (double coeffDir, double ordOrig, double x) {
 		double y = coeffDir*x + ordOrig;
@@ -282,7 +282,7 @@ public class Traitement {
 	 * @param minute
 	 * @param sec
 	 * @param pntCard
-	 * @return latitude en coordonnées géographiques du point en degrés décimaux
+	 * @return latitude en coordonnï¿½es gï¿½ographiques du point en degrï¿½s dï¿½cimaux
 	 */
 	public static double coordGeoDecLat (int deg, int minute, double sec, String pntCard) {
 		double latX = 0;
@@ -304,7 +304,7 @@ public class Traitement {
 	 * @param minute
 	 * @param sec
 	 * @param pntCard
-	 * @return longitude en coordonnées géographiques du point en degrés décimaux
+	 * @return longitude en coordonnï¿½es gï¿½ographiques du point en degrï¿½s dï¿½cimaux
 	 */
 	public static double coordGeoDecLong(int deg, int minute, double sec, String pntCard) {
 		double longX = 0;
@@ -322,14 +322,14 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
-	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
-	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
-	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param latXVectAr : latitude en coordonnï¿½es x,y du point d'arrivï¿½e du vecteur courant
+	 * @param longYVectAr : longitude en coordonnï¿½es x,y du point d'arrivï¿½e du vecteur courant
+	 * @param latXA : latitude en coordonnï¿½es x,y du point de dï¿½part du bateau
+	 * @param longYA : longitude en coordonnï¿½es x,y du point de dï¿½part du bateau
+	 * @param latXB : latitude en coordonnï¿½es x,y du point d'arrivï¿½e du bateau
+	 * @param longYB : longitude en coordonnï¿½es x,y du point d'arrivï¿½e du bateau
 	 * @param distanceRS : distance de la RS = vitesse du bateau (pour 1h)
-	 * @return latitude en coordonnées x,y du point d'intersection entre la RS et la RF
+	 * @return latitude en coordonnï¿½es x,y du point d'intersection entre la RS et la RF
 	 */
 	public static double latXInterRSetRF (double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
 		double latX = pointIntersectionX(pointIntersectionXUn(latXVectAr, longYVectAr, distanceRS, (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB ), pointIntersectionXDeux(latXVectAr, longYVectAr, distanceRS, (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB ), latXA, latXB);
@@ -339,15 +339,15 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
-	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
-	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
-	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
+	 * @param latXVectAr : latitude en coordonnï¿½es x,y du point d'arrivï¿½e du vecteur courant
+	 * @param longYVectAr : longitude en coordonnï¿½es x,y du point d'arrivï¿½e du vecteur courant
+	 * @param latXA : latitude en coordonnï¿½es x,y du point de dï¿½part du bateau
+	 * @param longYA : longitude en coordonnï¿½es x,y du point de dï¿½part du bateau
+	 * @param latXB : latitude en coordonnï¿½es x,y du point d'arrivï¿½e du bateau
+	 * @param longYB : longitude en coordonnï¿½es x,y du point d'arrivï¿½e du bateau
 	 * @param distanceRS : distance de la RS = vitesse du bateau (pour 1h)
-	 * @param latX : latitude en coordonnées x,y du point d'intersection entre la RS et la RF
-	 * @return longitude en coordonnées x,y du point d'intersection entre la RS et la RF
+	 * @param latX : latitude en coordonnï¿½es x,y du point d'intersection entre la RS et la RF
+	 * @return longitude en coordonnï¿½es x,y du point d'intersection entre la RS et la RF
 	 */
 	public static double longYInterRSetRF (double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS, double latX) {
 		double longY = pointIntersectionY( (longYB - longYA) / (latXB - latXA), longYB - ((longYB - longYA) / (latXB - latXA)) * latXB, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS));
@@ -357,9 +357,9 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latX : latitude, en coordonnées x,y, du point d'intersection entre la RS et la RF 
-	 * @param longY : longitude, en coordonnées x,y, du point d'intersection entre la RS et la RF
-	 * @return latitude, en coordonnées géographiques, du point d'intersection entre la RS et la RF
+	 * @param latX : latitude, en coordonnï¿½es x,y, du point d'intersection entre la RS et la RF 
+	 * @param longY : longitude, en coordonnï¿½es x,y, du point d'intersection entre la RS et la RF
+	 * @return latitude, en coordonnï¿½es gï¿½ographiques, du point d'intersection entre la RS et la RF
 	 */
 	public static double latInterRSetRF (double latX, double longY) {
 		
@@ -377,9 +377,9 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @param latX : latitude, en coordonnées x,y, du point d'intersection entre la RS et la RF 
-	 * @param longY : longitude, en coordonnées x,y, du point d'intersection entre la RS et la RF
-	 * @return longitude, en coordonnées géographiques, du point d'intersection entre la RS et la RF
+	 * @param latX : latitude, en coordonnï¿½es x,y, du point d'intersection entre la RS et la RF 
+	 * @param longY : longitude, en coordonnï¿½es x,y, du point d'intersection entre la RS et la RF
+	 * @return longitude, en coordonnï¿½es gï¿½ographiques, du point d'intersection entre la RS et la RF
 	 */
 	public static double longInterRSetRF (double latX, double longY) {
 		
@@ -396,16 +396,16 @@ public class Traitement {
 	
 	
 	/**
-	@param latVectAr : latitude en coordonnées géographiques du point d'arrivée du vecteur courant
-	 * @param longVectAr : longitude en coordonnées géographiques du point d'arrivée du vecteur courant
-	 * @param latXVectAr : latitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param longYVectAr : longitude en coordonnées x,y du point d'arrivée du vecteur courant
-	 * @param latXA : latitude en coordonnées x,y du point de départ du bateau
-	 * @param longYA : longitude en coordonnées x,y du point de départ du bateau
-	 * @param latXB : latitude en coordonnées x,y du point d'arrivée du bateau
-	 * @param longYB : longitude en coordonnées x,y du point d'arrivée du bateau
+	@param latVectAr : latitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e du vecteur courant
+	 * @param longVectAr : longitude en coordonnï¿½es gï¿½ographiques du point d'arrivï¿½e du vecteur courant
+	 * @param latXVectAr : latitude en coordonnï¿½es x,y du point d'arrivï¿½e du vecteur courant
+	 * @param longYVectAr : longitude en coordonnï¿½es x,y du point d'arrivï¿½e du vecteur courant
+	 * @param latXA : latitude en coordonnï¿½es x,y du point de dï¿½part du bateau
+	 * @param longYA : longitude en coordonnï¿½es x,y du point de dï¿½part du bateau
+	 * @param latXB : latitude en coordonnï¿½es x,y du point d'arrivï¿½e du bateau
+	 * @param longYB : longitude en coordonnï¿½es x,y du point d'arrivï¿½e du bateau
 	 * @param distanceRS : distance de la RS = vitesse du bateau (1h)
-	 * @return cap de RS, c'est à dire la direction du vecteur RS 
+	 * @return cap de RS, c'est ï¿½ dire la direction du vecteur RS 
 	 */
 	public static double capRS (double latVectAr, double longVectAr, double latXVectAr, double longYVectAr, double latXA, double longYA, double latXB, double longYB, double distanceRS) {
 		double cap = capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))));
@@ -414,7 +414,7 @@ public class Traitement {
 	}
 	
 	/**
-	 * @return : le tableau de type double,double de la liste des caps pour les 4 ports les plus proches du point de départ du bateau
+	 * @return : le tableau de type double,double de la liste des caps pour les 4 ports les plus proches du point de dï¿½part du bateau
 	 */
 	public static double[][] tabCapQuatrePorts (){
 		
@@ -486,7 +486,7 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @return : le tableau des caps pour le port le plus rapide à atteindre
+	 * @return : le tableau des caps pour le port le plus rapide ï¿½ atteindre
 	 */
 	public static double[] tabCapLePortLePlusRapide() {
 		
@@ -535,7 +535,7 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les différents caps à prendre pour le port d'indice zéro
+	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les diffï¿½rents caps ï¿½ prendre pour le port d'indice zï¿½ro
 	 */
 	public static double[] essaiZero () {
 		
@@ -576,7 +576,7 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les différents caps à prendre pour le port d'indice un
+	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les diffï¿½rents caps ï¿½ prendre pour le port d'indice un
 	 */
 	public static double[] essaiUn () {
 		int nbCap = 0;
@@ -608,7 +608,7 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les différents caps à prendre pour le port d'indice deux
+	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les diffï¿½rents caps ï¿½ prendre pour le port d'indice deux
 	 */
 	public static double[] essaiDeux () {
 		
@@ -643,7 +643,7 @@ public class Traitement {
 	
 	/**
 	 * 
-	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les différents caps à prendre pour le port d'indice trois
+	 * @return : un tableau de type double qui retourne toutes les distances en miles nautiques entre les diffï¿½rents caps ï¿½ prendre pour le port d'indice trois
 	 */
 	public static double[] essaiTrois () {
 		int nbCap = 0;
@@ -730,14 +730,14 @@ public class Traitement {
 	
 	
 	/**
-	 * @return : le tableau des quatre ports où leur distance, qui les séparent avec le point du départ du bateau, est la plus courte par rapport aux autres ports
+	 * @return : le tableau des quatre ports oï¿½ leur distance, qui les sï¿½parent avec le point du dï¿½part du bateau, est la plus courte par rapport aux autres ports
 	 */
 	public static Point[] quatrePortsLesPlusProches () {
 			Point essai [] = Point.getPort();
 			Point portsPlusProches[] = new Point[4];
 			 for(int j = 1 ; j <= 4 ; j++) {
 				 for (int i = 0; i < Point.getPort().length - j; i++) {
-						if(distanceDeAr(48.294054, -5.623783,essai[i].abcisse, essai[i].ordonnee) < distanceDeAr(48.294054, -5.623783,essai[i+1].abcisse, essai[i+1].ordonnee)) {
+						if(distanceDeAr(DialogInfo.info[1], DialogInfo.info[0],essai[i].abcisse, essai[i].ordonnee) < distanceDeAr(DialogInfo.info[1], DialogInfo.info[0],essai[i+1].abcisse, essai[i+1].ordonnee)) {
 							Point c = essai[i];
 							essai[i] = essai[i+1];
 							essai[i+1] = c;
@@ -781,7 +781,7 @@ public class Traitement {
 	
 	
 	/**
-	 * @return : l'ordonnée à l'origine de la droite (AB)
+	 * @return : l'ordonnï¿½e ï¿½ l'origine de la droite (AB)
 	 */
 	public static double[] ordOrig () {
 		
@@ -807,7 +807,7 @@ public class Traitement {
 	
 	
 	/**
-	 * @return : un tableau de type Point avec les points des ports en coordonnées Breizh (les points B)
+	 * @return : un tableau de type Point avec les points des ports en coordonnï¿½es Breizh (les points B)
 	 */
 	public static Point[] tabPointsB () {
 		
