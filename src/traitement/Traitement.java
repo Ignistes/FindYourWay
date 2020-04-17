@@ -58,25 +58,25 @@ public class Traitement {
 		//affichageQuatrePortsLesPlusProches(47.495571, -3.505096, Point.getPort());
 		//affQuatrePortsLesPlusProches();
 		//dkfjjf();
-		affTab();
+		//affTab();
 		//System.out.println(capDeg(48.294054, -5.623783,quatrePortsLesPlusProches()[3].abcisse, quatrePortsLesPlusProches()[3].ordonnee));
 		
 		
-		double latVectAr = 48.302156040696076;
-		double longVectAr = -5.625759107486851;
-		double latXVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).abcisse;
-		double longYVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).ordonnee;
-		double latXA = Point.GpsToBreizh(h,l, new Point(48.294054,-5.623783000000003)).abcisse;
-		double longYA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783000000003)).ordonnee;
-		double latXB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[1]).abcisse;
-		double longYB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[1]).ordonnee;
-		double distanceRS = 6*7.33;
-		
-		
-		System.out.println(capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS)))));
-
-	
-	
+//		double latVectAr = 48.302156040696076;
+//		double longVectAr = -5.625759107486851;
+//		double latXVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).abcisse;
+//		double longYVectAr = Point.GpsToBreizh(h,l, new Point(latVectAr, longVectAr)).ordonnee;
+//		double latXA = Point.GpsToBreizh(h,l, new Point(48.294054,-5.623783000000003)).abcisse;
+//		double longYA = Point.GpsToBreizh(h,l, new Point(48.294054, -5.623783000000003)).ordonnee;
+//		double latXB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[1]).abcisse;
+//		double longYB = Point.GpsToBreizh(h, l, quatrePortsLesPlusProches()[1]).ordonnee;
+//		double distanceRS = 6*7.33;
+//		
+//		
+//		System.out.println(capDeg(latVectAr, longVectAr, latInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS))), longInterRSetRF(latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS), longYInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS, latXInterRSetRF(latXVectAr, longYVectAr, latXA, longYA, latXB, longYB, distanceRS)))));
+        //tabCapQuatrePorts();
+        //System.out.println(coordGeoLat(48,1,100));
+        //System.out.println(coordGeoLong(-2, 47, 48, 100, 1));
 	}
 
 	public static void dkfjjf () {
@@ -153,15 +153,14 @@ public class Traitement {
 	 */
 	public static double coordGeoLat(double latDe,double distance, double cap){
 		int rayonT = 6371;	//rayon de la Terre en km
-		double latAr = Math.asin(Math.sin(Math.toRadians(latDe))
+		double latAr = Math.toDegrees(Math.asin(Math.sin(Math.toRadians(latDe))
 						*Math.cos(Math.toRadians(distance/rayonT))
 						+ Math.cos(Math.toRadians(latDe))
 						*Math.sin(Math.toRadians(distance/rayonT))
-						*Math.cos(Math.toRadians(cap))) ;
+						*Math.cos(Math.toRadians(cap))));
 		return latAr;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param longDe : longitude en coordonnées géographiques du point de départ
@@ -179,8 +178,8 @@ public class Traitement {
 		double x = Math.cos(Math.toRadians(distance/rayonT)) 
 					- Math.sin(Math.toRadians(latDe))
 					*Math.sin(Math.toRadians(latAr));
-		double longAr = Math.toRadians(longDe) + 
-						Math.atan2(Math.toRadians(y), Math.toRadians(x));
+		double longAr = Math.toDegrees(Math.toRadians(longDe) + 
+						Math.atan2(Math.toRadians(y), Math.toRadians(x)));
 		return longAr;
 	}
 
@@ -441,6 +440,35 @@ public class Traitement {
 		return tabCapQuatrePorts;
 	}
 	
+	/**
+	 * 
+	 * @param cap
+	 * @return le tableau de tous les points intermediaires
+	 */
+	public static Point[][] pointInter(){
+		
+		double[][] caps = tabCapQuatrePorts();
+		Point[] quatreP = quatrePortsLesPlusProches();
+		Point[][] pointInter = new Point[500][4];
+		
+		for(int i = 0; i < 4; i++) {
+			double distance = distanceDeAr(DialogInfo.info[1],DialogInfo.info[0],quatreP[i].abcisse,quatreP[i].ordonnee)/500;
+			double latDe 	= DialogInfo.info[1];
+			double longDe 	= DialogInfo.info[0];
+			for(int j = 0; j < 500; j++) {
+				double cap = caps[j][i];
+				double latAr = coordGeoLat(latDe,distance,cap);
+				pointInter[j][i] = new Point(latAr,coordGeoLong(longDe,latDe,latAr,distance,cap));
+				latDe 	= pointInter[j][i].abcisse;
+				longDe 	= pointInter[j][i].ordonnee;
+			}
+		}
+		return pointInter;
+	}
+	
+	public static Point PortLePlusRapide() {
+		return null;
+	}
 	
 	/**
 	 * affiche le tableau de la liste des caps pour les 4 ports les plus proches
