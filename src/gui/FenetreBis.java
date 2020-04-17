@@ -60,11 +60,12 @@ public class FenetreBis {
 	public static String remplirLabCap(double [][] cap , Point [][] coord, int j) {		
 		String s = "<html>";
 		for (int i = 0; i<499; i++) {
-			s += "Cap :" + "<br>" + String.valueOf(cap[i][j]) + "<br>" + "Point géographique :" + "<br>" + String.valueOf(coord[i][j].abcisse) + "<br>" +  String.valueOf(coord[i][j].ordonnee) + "<br>" + "<br>" ;
+			s += "Cap :" + "<br>" + String.valueOf(cap[i][j]) + "<br>" +  new String("Point géographique :".getBytes(),Charset.forName("UTF-8")) + "<br>" + String.valueOf(coord[i][j].abcisse) + "<br>" +  String.valueOf(coord[i][j].ordonnee) + "<br>" + "<br>" ;
 		}
-		s += "Cap :" + "<br>" + String.valueOf(cap[499][j])+ "<br>" + "Point géographique :" + "<br>" + String.valueOf(coord[499][j].abcisse) + "<br>" +  String.valueOf(coord[499][j].ordonnee) + "</html>";
+		s += "Cap :" + "<br>" + String.valueOf(cap[499][j])+ "<br>" +  new String("Point géographique :".getBytes(),Charset.forName("UTF-8")) + "<br>" + String.valueOf(coord[499][j].abcisse) + "<br>" +  String.valueOf(coord[499][j].ordonnee) + "</html>";
 		return s;
 	}
+	
 	
 	public static double[] testScroll() {
 		double [] test = new double[100];

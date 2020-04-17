@@ -1,0 +1,8 @@
+
+Les carrées CYAN sont les trois ports les plus proches de votre position.
+Vous pouvez cliquer dessus pour connaître les caps à suivre.
+
+Le carré ORANGE est le port le plus proche.
+Vous pouvez cliquer dessus pour connaître le cap à suivre.
+
+Les carrées BLEUS sont tous les autres ports de Bretagne.

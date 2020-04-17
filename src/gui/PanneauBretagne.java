@@ -7,8 +7,12 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 import javax.imageio.ImageIO;
@@ -16,6 +20,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -31,6 +36,7 @@ public class PanneauBretagne extends JPanel{
 	JLabel legende = new JLabel();
 	
 	
+	JButton legendB;
 	
 	JButton port1;
 	JButton port2;
@@ -82,6 +88,51 @@ public class PanneauBretagne extends JPanel{
 	     legende.repaint();
 	}
 	*/
+	
+	public void gererLegend () {
+		
+		legendB = new JButton();
+		legendB.setBounds(0, 0, 100, 30);
+		legendB.setText( new String("Légende".getBytes(),Charset.forName("UTF-8")));
+		
+		add(legendB);
+		
+		legendB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String chaine = "";
+				String fichier = "image/legende.txt";
+				{
+					// lecture du fichier texte
+					try {
+						InputStream ips = new FileInputStream(fichier);
+						InputStreamReader ipsr = new InputStreamReader(ips);
+						BufferedReader br = new BufferedReader(ipsr);
+						String ligne;
+						while ((ligne = br.readLine()) != null) {
+							if (ligne.contains("nom :")) {
+								String[] st = ligne.split(ligne, ':');
+								System.out.println("Nom = " + st[1]);
+							}
+							chaine += ligne + "\n";
+						}
+						br.close();
+					} catch (Exception e) {
+						System.out.println(e.toString());
+					}
+				}
+				String text = new String(chaine.getBytes(),Charset.forName("UTF-8"));
+				// Boîte du message d'information
+				JOptionPane jop1 = new JOptionPane();
+				jop1.showMessageDialog(null, text,  new String("Légende".getBytes(),Charset.forName("UTF-8")), JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
@@ -373,8 +424,9 @@ public class PanneauBretagne extends JPanel{
 			*/
 		}
 		
+		
 		boutonPorts();
-		//setLegend();
+		gererLegend();
 		
 		
 		
